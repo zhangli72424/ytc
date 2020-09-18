@@ -1,0 +1,473 @@
+{
+	"easycom": {
+		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
+	},
+	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
+		{
+			"path": "pages/first/first",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				"navigationBarTitleText": "",
+				"backgroundColor":"#000000"
+			}
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				"navigationBarTitleText": ""
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "pages/register/register",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "pages/register/state",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+			"path": "pages/forget/forget",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+		}
+	    ,{
+            "path" : "pages/mine/mine",
+            "style" : {
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/market/market",
+            "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"bounce":"none",
+					"titleNView":false,
+					"scrollIndicator":"none"
+				}
+			}
+        }
+        ,{
+            "path" : "pages/assets/assets",
+            "style" : {
+				"navigationBarTitleText":"资产",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        }
+        ,{
+            "path" : "pages/miner/miner",
+            "style" : {
+				"navigationBarTitleText":"充币",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        },
+		{
+		    "path" : "pages/miner/mining",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/recharge",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"充币",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/coin",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"提币",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/flash",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"闪付",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/history",
+		    "style" : {
+				"enablePullDownRefresh":true,
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"账单",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/add-address",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"添加地址",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/address-list",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/flash-payment",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+				}
+			}
+		},
+		{
+		    "path" : "pages/assets/detail",
+		    "style" : {
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"#FFFFFF"
+			}
+		},
+		{
+            "path" : "pages/market/sell",
+            "style" : {
+				"navigationBarTitleText":"发布售出",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        },
+		{
+		    "path" : "pages/market/buy-and-sell",
+		    "style" : {
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+		    "path" : "pages/market/list",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh":true,
+				"app-plus":{
+					"titleNView":false
+					
+				}
+			}
+		},
+		{
+		    "path" : "pages/market/list-detail",
+		    "style" : {
+				"enablePullDownRefresh":true,
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					"titleNView":false
+				}
+			}
+		},
+		{
+		    "path" : "pages/market/participate",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"enablePullDownRefresh":true,
+				"app-plus":{
+					"titleNView":false
+					
+				}
+			}
+		},
+		{
+		    "path" : "pages/down/down",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"APP 下载",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/invite/advertising",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					"navigationBarTitleText":"APP 下载",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/setting/setting",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"navigationBarBackgroundColor":"#FFFFFF"
+			}
+		},
+		{
+		    "path" : "pages/modify-login/modify-login",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTitleText":""
+			}
+		},
+		{
+		    "path" : "pages/modify-pwd/modify-pwd",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTitleText":""
+			}
+		},
+		{
+		    "path" : "pages/setting/protocol",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					"navigationBarTitleText":"协议",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/setting/modify-email",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"修改手机号",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/team/team",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					"navigationBarTitleText":"",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+		    "path" : "pages/bill/bili",
+		    "style" : {
+				"navigationBarTitleText":"账单",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black",
+				"app-plus":{
+					"navigationBarTitleText":"账单",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},
+		{
+            "path" : "pages/new/new",
+            "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"bounce":"none",
+					"titleNView":false,
+					"scrollIndicator":"none"
+				}
+			}
+        },
+		{
+            "path" : "pages/new/notice",
+            "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"bounce":"none",
+					"titleNView":false,
+					"scrollIndicator":"none"
+				}
+			}
+        },
+		{
+            "path" : "pages/new/detail",
+            "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"bounce":"none",
+					"titleNView":false,
+					"scrollIndicator":"none"
+				}
+			}
+        }
+		
+        ,{
+            "path" : "pages/loader/loader",
+            "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white"
+			}
+        }
+		,{
+		    "path" : "pages/miner/index",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white"
+			}
+		},{
+		    "path" : "pages/miner/detail",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white"
+			}
+		}
+    ],
+	"globalStyle": {
+		"navigationBarTextStyle": "white",
+		"navigationBarTitleText": "幂次方",
+		"navigationBarBackgroundColor": "#FFFFFF",
+		"backgroundColor": "#FFFFFF"
+	},
+	"tabBar": {
+		"color": "#ACACAC",
+		"selectedColor": "#0669DC",
+		"borderStyle": "black",
+		"backgroundColor": "#FFFFFF",
+		"list": [{
+				"pagePath": "pages/index/index",
+				"text": "首页",
+				"iconPath": "static/tab/tab06.png",
+				"selectedIconPath": "static/tab/tab01.png"
+			},
+			{
+				"pagePath": "pages/miner/index",
+				"text": "交易",
+				"iconPath": "static/tab/tab07.png",
+				"selectedIconPath": "static/tab/tab02.png"
+			},
+			// {
+			// 	"pagePath": "pages/market/market",
+			// 	"text": "市场",
+			// 	"iconPath": "static/tab/tab08.png",
+			// 	"selectedIconPath": "static/tab/tab03.png"
+			// },
+			{
+				"pagePath": "pages/assets/assets",
+				"text": "资产",
+				"iconPath": "static/tab/tab08.png",
+				"selectedIconPath": "static/tab/tab03.png"
+			},
+			{
+				"pagePath": "pages/new/new",
+				"text": "资讯",
+				"iconPath": "static/tab/tab09.png",
+				"selectedIconPath": "static/tab/tab04.png"
+			},
+			{
+				"pagePath": "pages/mine/mine",
+				"text": "我的",
+				"iconPath": "static/tab/tab10.png",
+				"selectedIconPath": "static/tab/tab05.png"
+			}
+		]
+	}
+}
