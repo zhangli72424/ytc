@@ -17,7 +17,7 @@
 	@import url("/common/css/common.css");
 	@import url("/common/css/font.css");
 	page{
-		background-color: #ffffff !important;
+		background-color: #F6F6F6 !important;
 	}
 	/*每个页面公共css */
 </style>

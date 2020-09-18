@@ -304,7 +304,8 @@
 					.name {
 						margin-top: 45rpx;
 						font-size: 26rpx;
-						color: #FFFFFF;
+						color: $black;
+						font-weight: bold;
 					}
 					.content {
 						font-size: 11px;
@@ -314,6 +315,7 @@
 						letter-spacing: 1px;
 						word-break:break-all;
 						overflow: hidden;
+						height: 54px;
 					}
 					.btns {
 						display: flex;

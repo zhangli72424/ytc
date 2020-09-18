@@ -1,6 +1,7 @@
 <template>
 	<view>
-		<u-navbar :is-back="false" :background="background"></u-navbar>
+		<uni-status-bar bgcolor="transparent"></uni-status-bar>
+		<!-- <u-navbar :is-back="false" :background="background"></u-navbar> -->
 		<view class="index-top">
 			<view class="index-top-l">
 				<text>投资收益(YTC)</text>
@@ -87,9 +88,10 @@
 	import Load from '@/components/common/load.vue';
 	import {pageto, showToast, fetch, updownLine, forceUpdate, diff_txt, _updataTabBar} from '@/common/js/util.js'
 	import {mapGetters, mapMutations} from 'vuex' 
+	import uniStatusBar from '@/components/uni-status-bar/uni-status-bar.vue';
 	export default {
 		components:{
-			marketList,Load
+			marketList,Load,uniStatusBar
 		},
 		data() {
 			return {
@@ -262,7 +264,7 @@
 	}
 </script>
 
-<style scoped lang="scss" scoped>
+<style scoped lang="scss">
 	.index-top-img{
 		position: fixed;
 		left: 0;
@@ -275,7 +277,7 @@
 		background: linear-gradient(to right, #145AC2, #092FEE);
 	}
 	.index-top{
-		padding: 0 30upx 90rpx;
+		padding: 72rpx 30upx 90rpx;
 		display: flex;
 		align-items: flex-end;
 		justify-content: space-between;
@@ -386,6 +388,8 @@
 			overflow: hidden;
 			align-items: center;
 			margin-bottom: 40upx;
+			background: #f7f7f7;
+			border-radius: 29rpx;
 			// padding: 0 30rpx;
 			text{
 				font-size: 26rpx;

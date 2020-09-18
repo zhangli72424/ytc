@@ -274,15 +274,27 @@
 	}
 	.assets-content{
 		.assets-content-title{
-			padding:0 30upx 30upx;
-			font-weight: 36upx;
-			color: $white;
+			padding:0 0 0 18rpx;
+			margin: 0 30rpx 30rpx;
+			font-size: 36upx;
+			color: $black;
+			font-weight: bold;
+			&::before{
+				content: "";
+				position: absolute;
+				width: 6rpx;
+				height: 38rpx;
+				background: #0D41DB;
+				left: 0;
+				top: 50%;
+				transform: translateY(-50%)
+			}
 		}
 		.list{
 			background-color: $white;
 			border-radius: 8upx;
 			margin:0 30upx 20upx;
-			box-shadow: 0 0 30rpx rgba(0,0,0,.2);
+			box-shadow: 0 0 30rpx rgba(0,0,0,.05);
 			.list-top{
 				padding: 36upx 36upx 40upx;
 				display: flex;

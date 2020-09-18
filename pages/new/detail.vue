@@ -61,8 +61,6 @@ export default {
 </script>
 
 <style lang="scss">
-@import '@/common/scss/global.scss';
-@import '@/common/scss/variable.scss';
 .app-aboutus {
 	.index-top-nav-title{
 		// padding-left: 30upx;
@@ -70,7 +68,7 @@ export default {
 		font-size: 36upx;
 		text-align: center;
 		background: #FFFFFF;
-		color: #FFFEFF;
+		color: $black;
 		display: flex;
 		align-items: center;
 		justify-content: space-between;
@@ -92,7 +90,7 @@ export default {
 			font-size: 15px;
 			font-weight: bold;
 			text-align: center;
-			color: #FFFEFF;
+			color: $black;
 		}
 		.p{
 			color: #999999;

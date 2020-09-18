@@ -135,7 +135,7 @@
 			
 			
 			
-			<view class="detail-title">
+			<!-- <view class="detail-title">
 				购买流程
 			</view>
 			<view class="product-process">
@@ -172,7 +172,7 @@
 						<text>购买矿机</text>
 					</view>
 				</view>
-			</view>
+			</view> -->
 		</view>
 		<view class="footer-btn">
 			<u-button
@@ -324,6 +324,20 @@
 		methods:{
 			...mapMutations(['setCurInfo', 'setImgsrc']),
 			getDetail(){
+				
+				let res = {"code":1,"msg":"成功","time":1600419317,"data":{"id":1,"title":"ETH矿机","status":1,"details":null,"rcb":"0.1000","premium":"0.00009600","type":1,"th_day":1460,"token_id":2,"stock":0,"buystock":0,"lowbetting":12,"th":230,"price":"16800.00","install_day":30,"expinc":"30","power":"218.06","diff":"2.92","time":"2020-09-18","ctime":"2020-10-18","dtime":"2024-09-17","year":4,"balance":"0.00000000"}}
+				
+				if(res.code==1){
+					this.curInfo = res.data
+					this.curInfo.ycb = parseInt(Number(this.curInfo.rcb)*10000)/100
+					this.curInfo.price = parseInt(Number(this.curInfo.price)*10000)/10000
+					this.curInfo.prograss = parseInt(Number(this.curInfo.buystock)/(Number(this.curInfo.buystock)+Number(this.curInfo.stock))*1000000)/10000
+					this.curInfo.premium = parseInt(Number(this.curInfo.premium)*10000)/100
+					console.log(this.curInfo);
+					
+				}
+				return
+				
 				fetch('/api/bee/buydetails',{shopid:this.getCurInfo.shopid},'post')
 					.then(res=>{
 						if(res.data.code==1){
@@ -546,14 +560,14 @@
 	.detail-contant{
 		padding: 82rpx 40rpx 0;
 		// margin: 82rpx 0 0;
-		background-color: $page-bg-color5;
+		background-color: $white;
 		border-top-left-radius: 20rpx;
 		border-top-right-radius: 20rpx;
 		overflow: hidden;
 		.detail-title{
 			padding-left: 18rpx;
 			position: relative;
-			color: $white;
+			color: $black;
 			font-size: 36rpx;
 			font-weight: bold;
 			margin-bottom: 34rpx;
@@ -584,7 +598,7 @@
 					view{
 						font-size: 28rpx;
 						font-weight: bold;
-						color: $default-color;
+						color: $black;
 						margin-bottom: 15rpx;
 					}
 					text{
@@ -627,7 +641,7 @@
 						view{
 							font-size: 28rpx;
 							font-weight: bold;
-							color: $default-color;
+							color: $black;
 							margin-bottom: 15rpx;
 						}
 						text{
@@ -712,7 +726,7 @@
 				.product-parameter-li-item-r{
 					flex: 1;
 					line-height: 70rpx;
-					color: $default-color;
+					color: $black;
 					font-weight: bold;
 				}
 			}
@@ -724,7 +738,7 @@
 				padding-bottom: 40rpx;
 				font-size: 28rpx;
 				font-weight: bold;
-				color: $default-color;
+				color: $black;
 			}
 		}
 		.product-process{
@@ -742,13 +756,13 @@
 					border-radius: 20rpx;
 					text-align: center;
 					background: #0669DC;
-					color: $white;
+					color: $black;
 					font-size: 26rpx;
 					margin-right: 10rpx;
 				}
 				.product-process-li-r{
 					view{
-						color: $default-color;
+						color: $black;
 						font-size: 26rpx;
 						font-weight: bold;
 					}
@@ -786,7 +800,7 @@
 			left: 0;
 			bottom: 0;
 			padding: 60upx 60upx 40upx;
-			background-color: $page-bg-color5;
+			background-color: $white;
 			border-top-left-radius: 30upx;
 			border-top-right-radius: 30upx;
 			.popule-list{
@@ -796,7 +810,7 @@
 					font-size: 36upx;
 					font-weight: bold;
 					padding-bottom: 25upx;
-					color: $default-color; 
+					color: $black; 
 				}
 				text{
 					font-size: 26upx;
@@ -805,7 +819,7 @@
 				&.popule-list-lac{
 					text{
 						font-size: 30rpx;
-						color: $default-color;
+						color: $black;
 					}
 				}
 			}
@@ -824,7 +838,7 @@
 			}
 			.list{
 				padding: 20upx 0 0;
-				color: $default-color;
+				color: $black;
 				&:last-of-type{
 					.input-item{
 						border-bottom: none;
@@ -832,14 +846,14 @@
 				}
 				.title{
 					font-size: 30upx;
-					color: $white;
+					color: $black;
 					background: #1d184f;
 				}
 				.input-item{
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					border-bottom: 1upx solid $split-line-color1;
+					border-bottom: 1upx solid $split-line-color2;
 					input{
 						line-height: 88upx;
 						height: 88upx; 
@@ -851,6 +865,7 @@
 				}
 			}
 			.popule-num-content{
+				padding-bottom: 80rpx;
 				text{
 					font-size: 26upx;
 					color: $text-gray-color1;
@@ -863,36 +878,36 @@
 					width: 475upx;
 					line-height: 80upx;
 					height: 80upx;
-					border: 1upx solid $split-line-color1;
+					border: 4upx solid $black;
 					border-radius: 8upx;
 					overflow: hidden;
 					button{
 						&:first-of-type{
-							border-right: 1upx solid $split-line-color1;
+							border-right: 4upx solid $black;
 						}
 						&:last-of-type{
-							border-left: 1upx solid $split-line-color1;
+							border-left: 4upx solid $black;
 						}
 						&.active{
-							background: #8884B7;
+							background: #C5C5C5;
 							color: $text-gray-color1;
 						}
 						font-size: 60upx;
 						border-radius: 0; 
 						width: 80upx;
 						height: 80upx;
-						color: $default-color;
-						line-height: 80upx;
+						color: $black;
+						line-height: 74upx;
 						text-align: center;
 						font-weight: normal;
-						background-color: $theme-color;
+						background-color: $white;
 					}
 					input{
 						font-size: 40upx;
 						font-weight: normal;
 						flex: 1;
 						line-height: 80upx;
-						color:$default-color;
+						color:$black;
 						text-align: center;
 					}
 				}
@@ -913,12 +928,12 @@
 					display: flex;
 					justify-content: space-between;
 					align-items: center;
-					color: $default-color;
+					color: $black;
 					view{
 						font-weight: bold;
 					} 
 					text{
-						color: $default-color;
+						color: $black;
 						font-size: 36upx;
 						font-weight: bold;
 					}
@@ -926,10 +941,10 @@
 			}
 			.popule-meg{
 				padding: 20upx 0;
-				color: $default-color;
+				color: $black;
 				text{
 					font-size: 26upx;
-					color: $default-color;
+					color: $black;
 				}
 			}
 			.popule-nav{
@@ -942,7 +957,7 @@
 					text-align: center;
 					&:first-of-type{
 						button{
-							background: $button-default-color;
+							background: #C5C5C5;
 						}
 					}
 					&:last-of-type{
@@ -959,7 +974,7 @@
 						font-size: 34upx;
 						font-weight: bold;
 						&.active{
-							background: #8884B7;
+							background: #C5C5C5;
 							color: #0F0C39;
 						}
 					}
