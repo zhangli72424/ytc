@@ -76,13 +76,6 @@
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
-			<view class="list-item" hover-class="active" @tap.stop="to('setting')">
-				<image src="../../static/imgs/mine-nav6.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">{{i18n.System_settings}}</view>
-				<view class="list-item-text-r">
-					<i class="icon iconfont iconxiangyou1"></i>
-				</view>
-			</view>
 			<view class="list-item" hover-class="active">
 				<image src="../../static/imgs/mine-nav5.png" mode="widthFix" lazy-load></image>
 				<view class="list-item-text">版本</view>
@@ -91,7 +84,13 @@
 					{{version || '1.0.0'}}
 				</view>
 			</view>
-			
+			<view class="list-item" hover-class="active" @tap.stop="to('setting')">
+				<image src="../../static/imgs/set-up.png" mode="widthFix" lazy-load></image>
+				<view class="list-item-text">{{i18n.System_settings}}</view>
+				<view class="list-item-text-r">
+					<i class="icon iconfont iconxiangyou1"></i>
+				</view>
+			</view>
 			
 			
 			

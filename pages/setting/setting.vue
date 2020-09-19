@@ -7,11 +7,11 @@
 		titleColor="#000000">
 		</u-navbar>
 		<view class="list">
-			<view class="li" hover-class="hover-transform2" @tap="pageto('/pages/modify-login/modify-login')">
+			<view class="li" hover-class="hover-transform2" @tap="navigateTo(0)">
 				<text class="txt">{{i18n.modify_login}}</text>
 				<text class="iconfont icon-arrow-right"></text>
 			</view>
-			<view class="li" hover-class="hover-transform2" @tap="pageto('/pages/modify-pwd/modify-pwd')">
+			<view class="li" hover-class="hover-transform2" @tap="navigateTo(1)">
 				<text class="txt">{{i18n.modify_pwd}}</text>
 				<text class="iconfont icon-arrow-right"></text>
 			</view>
@@ -69,14 +69,36 @@
 				'getLoginInfo',
 				'getRequestUrl',
 				"getLang",
-				'getLangType'
+				'getLangType',
 			])
 		},
 		onShow(){
+			// getid()
 			forceUpdate(this.getLangType);
 		},
 		methods: {
-			pageto(str) {pageto(str)},
+			// getid(id){
+			// 	console.log(id,"#################")
+			// },
+			navigateTo(id) {
+				console.log(id)
+				if(id==0){
+					console.log(1234)
+					uni.navigateTo({
+						url:"/pages/new-login/verification-Mnemonic2"
+					})
+					// uni.navigateTo({
+					// 	url:"/pages/modify-login/modify-login"
+					// })
+				}else{
+					uni.navigateTo({
+						url:"/pages/new-login/verification-Mnemonic2"
+					})
+					// uni.navigateTo({
+					// 	url:"/pages/modify-pwd/modify-pwd"
+					// })
+				}
+			},
 			back() {
 				pageback()
 			},

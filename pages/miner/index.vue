@@ -74,7 +74,7 @@
 						
 						<view class="list-cantant-footer">
 							<view :class="{'green':item.status==2}">{{item.status==1?'未质押暂无抢购资格':'已质押保证金等待抢购'}}</view>
-							<view class="list-cantant-footer-item" v-if="item.status==1">去质押<i class="icon iconfont iconxiangyou1"></i><i class="icon iconfont iconxiangyou1"></i></view>
+							<view class="list-cantant-footer-item" @tap="pledge" v-if="item.status==1">去质押<i class="icon iconfont iconxiangyou1"></i><i class="icon iconfont iconxiangyou1"></i></view>
 						</view>
 					</view>
 				</block>
@@ -93,16 +93,31 @@
 		
 		<view class="popule-metexts" v-if="showpopule" :class="{'animated bounceInUp ':showpopule}" @tap.stop="closet">
 					<view class="popule-content" @tap.stop="''">
-						<view class="popule-list">
-							<view>{{curInfo.title}}</view>
-						</view>
-							<view class="popule-list popule-list-lac">
-								<text>保证金：{{curInfo.price}}USDT</text>
+						
+						<template  v-if="show">
+							<view class="popule-list">
+								<view>质押保证金</view>
 							</view>
-						<view class="popule-list-real"> 
-							<text>实际支付价格</text>
-							<view>{{num*curInfo.price}} USDT</view>   
-						</view>
+								<view class="popule-list popule-list-lac">
+									<text>保证金：{{curInfo.price}}USDT</text>
+								</view>
+							<view class="popule-list-real"> 
+								<text>实际支付价格</text>
+								<view>{{num*curInfo.price}} USDT</view>   
+							</view>
+						</template>
+						<template v-else>
+							<view class="popule-list">
+								<view>{{curInfo.title}}</view>
+							</view>
+								<view class="popule-list popule-list-lac">
+									<text>保证金：{{curInfo.price}}USDT</text>
+								</view>
+							<view class="popule-list-real"> 
+								<text>实际支付价格</text>
+								<view>{{num*curInfo.price}} USDT</view>   
+							</view>
+						</template>
 						<view class="popule-num-content">
 							<text>质押数量</text>
 							<view class="popule-num">
@@ -171,7 +186,8 @@
 				},
 				list:[],
 				curInfo:{},
-				num:1
+				num:1,
+				show:false
 			}
 		},
 		computed:{
@@ -200,6 +216,11 @@
 			uni.showTabBar()
 		},
 		methods:{
+			pledge(){
+				console.log('1234564321',this.show)
+				this.showpopule = true;
+				this.show=true
+			},
 			closeMess(){
 				this.showMess = false
 				setTimeout(()=>{
@@ -247,11 +268,11 @@
 				if(item.status==1){
 					this.curInfo = item;
 					this.showpopule = true;
+					this.show=false
 					uni.hideTabBar()
 					return
 				}
-				this.setCurInfo(item)
-				
+				// this.setCurInfo(item)
 				uni.navigateTo({
 					url:'/pages/miner/detail'
 				})
@@ -272,7 +293,7 @@
 						this.list[index].price = Number(item.price)*100000000/100000000
 						this.list[index].day = item.month+'月'
 					})
-				}
+				} 	
 				return
 				fetch('/api/bee/shoclist',{},'post')
 					.then(res=>{
@@ -292,6 +313,7 @@
 					})
 			},
 			close(val){
+				uni.showTabBar()
 				if(val==1){
 					this.isshows = false;
 					this.showss = false;

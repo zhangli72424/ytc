@@ -447,6 +447,8 @@
 					})
 			},
 			comfirm(){
+				
+				
 				// if(!this.getLoginInfo.paypwd){
 				// 	this.showMess = true;
 				// 	this.showpopule = false;
@@ -461,6 +463,8 @@
 				// 	this.message = this.getLangType=='chs'?'余额不足':'Insufficient balance'
 				// 	return
 				// }
+				
+				
 				this.showpopule = false;
 				// this.showpwd = true;
 				
@@ -739,6 +743,7 @@
 				font-size: 28rpx;
 				font-weight: bold;
 				color: $black;
+				line-height: 40rpx;
 			}
 		}
 		.product-process{

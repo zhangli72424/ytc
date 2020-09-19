@@ -390,10 +390,11 @@
 			margin-bottom: 40upx;
 			background: #f7f7f7;
 			border-radius: 29rpx;
-			// padding: 0 30rpx;
+			// padding:34rpx 0 27rpx;
 			text{
 				font-size: 26rpx;
 				color: #000000;
+				padding-right:27rpx ;
 			}
 			swiper {
 				height: 74upx;
@@ -424,7 +425,7 @@
 		.index-nav-list-item{
 			width: 25%;
 			// flex: 2;
-			padding: 5rpx 0 15rpx;
+			padding: 5rpx 0 20rpx;
 			text-align: center;
 			&.active{
 				background: rgba(255,255,255,.1);

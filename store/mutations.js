@@ -56,8 +56,10 @@ const mutatinos = {
 	},
 	setCurInfo(state, val){
 		state.curInfo = val
+	},
+	setId(state,val){
+		state.id=val
 	}
-	
 	
 	
 }

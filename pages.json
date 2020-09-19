@@ -3,15 +3,15 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		{
-			"path": "pages/first/first",
-			"style": {
-				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
-				"navigationBarTitleText": "",
-				"backgroundColor":"#000000"
-			}
-		},
+		// {
+		// 	"path": "pages/first/first",
+		// 	"style": {
+		// 		"navigationStyle": "custom" ,// 隐藏系统导航栏
+		// 		"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+		// 		"navigationBarTitleText": "",
+		// 		"backgroundColor":"#000000"
+		// 	}
+		// },
 		{
 			"path": "pages/index/index",
 			"style": {
@@ -20,6 +20,57 @@
 				"navigationBarTitleText": ""
 			}
 		},
+		{
+		    "path" : "pages/new-login/Mnemonic-tips",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/define-Mnemonic",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/forget-loginpwd",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/new-login",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/new-register",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/verification-Mnemonic",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},{
+		    "path" : "pages/new-login/verification-Mnemonic2",
+		    "style" : {
+				// "navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},
+		{
+		    "path" : "pages/new-login/Import-wallet",
+		    "style" : {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "black"
+			}
+		},
+		
 		{
 			"path": "pages/login/login",
 			"style": {
@@ -75,6 +126,8 @@
 	    ,{
             "path" : "pages/mine/mine",
             "style" : {
+				"navigationStyle": "custom",
+				"navigationBarBackgroundColor":"#021A5C",
 				"app-plus":{
 					//禁止原生导航
 					"titleNView":false,
@@ -422,8 +475,8 @@
 		}
     ],
 	"globalStyle": {
-		"navigationBarTextStyle": "white",
-		"navigationBarTitleText": "幂次方",
+		"navigationBarTextStyle": "black",
+		"navigationBarTitleText": "",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
 	},

@@ -6,6 +6,7 @@ const state = {
 	area: uni.getStorageSync('area') || {},
 	loginInfo: uni.getStorageSync('loginInfo') || {},
 	login: uni.getStorageSync('login') || {},
+	id:uni.getStorageSync('id')|| "",
 	textArr: {
 		chs: [ "首页", "交易",  "资产", "资讯", "我的" ],
 		en: [ "Home", "Transaction", "Assets", "News", "Mine" ]
