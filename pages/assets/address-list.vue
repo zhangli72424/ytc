@@ -1,6 +1,6 @@
 <template>
 	<view class="content">
-		<u-navbar :is-back="true" :title="i18n.addressList" :background="background" titleColor="#ffffff" backIconColor="#ffffff">
+		<u-navbar :is-back="true" :title="i18n.addressList" :background="background" titleColor="#000000" backIconColor="#000000">
 			
 			<view slot="right" class="right-nav-color" hover-class="active" @tap.stop="toAdd">
 				{{i18n.add}}
@@ -50,7 +50,7 @@
 		},
 		data() {
 			return {
-				background:'linear-gradient(45deg, #2FB383, #22DE8E)',
+				background:'#ffffff',
 				showPopule:false,
 				curInfo:{},
 				laoding:false,
@@ -176,12 +176,17 @@
 		}
 	}
 </script>
-
+<style>
+	page{
+		background: #f6f6f6 !important;
+	}
+</style>
 <style lang="scss" scoped>
 	@import '@/common/scss/variable.scss';
 	.right-nav-color{
 		padding: 0 30upx 0 0;
-		color: $white;
+		color: $black;
+		font-size: 26rpx;
 	}
 	.content{
 		padding: 20upx 0 20upx;
@@ -258,10 +263,10 @@
 			}
 		}
 		.list{
-			background-color: $page-bg-color5;
+			background-color: $white;
 			margin-bottom: 20upx;
 			.title{
-				color: $white;
+				color: $page-bg-color5;
 				line-height: 104upx;
 				font-size: 30upx;
 				padding: 0 30upx;
@@ -270,7 +275,7 @@
 				color: #4A4B79;
 				font-size: 26upx;
 				overflow: hidden;
-				border-bottom: 1upx solid $split-line-color1;
+				border-bottom: 1upx solid $split-line-color2;
 				padding: 0 30upx 18upx;
 				text{
 					display: block;

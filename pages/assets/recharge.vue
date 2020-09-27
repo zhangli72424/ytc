@@ -161,13 +161,13 @@
 		padding: 40upx 30upx;
 		.container{
 			padding: 40upx 0 40upx;
-			background-color: $page-bg-color5;
+			background-color: $white;
 			border-radius:10upx;
 			.title{
 				line-height: 114upx;
 				font-size: 40upx;
 				text-align: center;
-				color: $white;
+				color: $page-bg-color5;
 			}
 			.qr-code{
 				display: flex;
@@ -205,10 +205,10 @@
 					margin-bottom: 18upx;
 				}
 				.address-content{
-					color: $white;
+					color: $black;
 					font-size: 30upx;
 					padding: 26upx;
-					background-color: $button-default-color;
+					background-color: #f6f6f6;
 					text-align: center;
 					border-radius: 10upx;
 					word-wrap:break-word;

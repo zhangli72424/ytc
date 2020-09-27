@@ -1,6 +1,6 @@
 <template>
 	<view>
-		<image src="../../static/imgs/them-bg.gif"
+		<image src="../../static/imgs/Render_2.gif"
 		:style="'height:'+ screenHeight +'px !important;'"
 		 lazy-load class="ethq-index-bg"></image>
 	</view>
@@ -16,8 +16,8 @@
 		 onLoad() {
 			 this.screenHeight = uni.getSystemInfoSync().windowHeight;
 			 setTimeout(()=>{
-				uni.switchTab({
-					url:'/pages/index/index'
+				uni.reLaunch({
+					url:'/pages/login/login'
 				})
 			 },3000)
 		},

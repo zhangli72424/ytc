@@ -1,18 +1,19 @@
 <template>
 	<view class="app-login">
-		<u-navbar :is-back="false" :title="i18n.login" :background="background" titleColor="#000000">
+		<u-navbar :is-back="false" :title="i18n.login" :background="background" titleColor="#ffffff">
 			
 			<view slot="right" class="right-nav-color" hover-class="active" @tap.stop="goRegister">
 				{{i18n.register}}
 			</view>
 		</u-navbar>
+		<image src="../../static/imgs/new-register-bg.png" mode="widthFix" lazy-load class="new-register-bg"></image>
 		<view class="login-header">
 			<!-- <image src="../../static/imgs/login01.png" mode="widthFix" lazy-load></image> -->
 			<view class="login-title">
 				{{i18n.hello}}
 			</view>
 			<view class="login-title-op">
-				{{i18n.welcome_to}}
+				<!-- {{i18n.welcome_to}} -->欢迎来到VISION
 			</view>
 		</view>
 		<!-- <view class="greeting">
@@ -36,14 +37,14 @@
 				<text class="iconfont icon-cha" @tap="name=''"></text>
 			</view> -->
 			<view class="li">
-				<input type="text" placeholder-class="other-pl-class" :placeholder="i18n.enter_account" v-model="phone">
+				<input type="text" placeholder-class="other-pl-class" @blur="change" :placeholder="i18n.enter_account" v-model="phone">
 				<text class="iconfont icon-cha" @tap="phone=''"></text>
 			</view>
 			<view class="li">
-				<input :type="showiconyanjing1 ? 'password' : 'text'" placeholder-class="other-pl-class" :placeholder="i18n.enter_login_pass" v-model="pass">
+				<input :type="showiconyanjing1 ? 'password' : 'text'" @blur="change" placeholder-class="other-pl-class" :placeholder="i18n.enter_login_pass" v-model="pass">
 				<text class="iconfont" :class="showiconyanjing1 ? 'icon-yanjing1' : 'icon-yanjing2'" @tap="showiconyanjing1 = !showiconyanjing1"></text>
 			</view>
-			<view class="forget" @tap.stop="forget">{{i18n.forget}}</view>
+			<!-- <view class="forget" @tap.stop="forget">{{i18n.forget}}</view> -->
 			<view class="btn-wrapper">
 				<!-- <Btn 
 			backgroundColor="#333333" 
@@ -65,16 +66,17 @@
 	<!-- 	<view class="login-bottom-bg">
 			<image src="../../static/imgs/login-bottom-bg.png" mode="widthFix" lazy-load></image>
 		</view> -->
-		<label class="Registration-Agreement">
+		<!-- <label class="Registration-Agreement">
 			<checkbox-group  @change="checkboxChange">
 				<checkbox value="isChoose"  :checked="isChoosed"/>
 			</checkbox-group>
 			<view>{{i18n.I_have_read_and_agree}}<text @tap.stop="Agreement">{{i18n.Registration_Agreement}}</text></view>
-		</label>
+		</label> -->
 	</view>
 </template>
 
 <script>
+	import App from '../../App.vue'
 	import Load from '@/components/common/load.vue';
 	import {mapGetters, mapMutations} from 'vuex'
 	import {pageto, showToast, fetch, forceUpdate} from '@/common/js/util.js'
@@ -86,13 +88,13 @@
 				background:'transparent',
 				name:'',
 				showLoad:false,
-				phone: '',
-				pass: '',
+				phone:'',
+				pass:'',
 				curLang: 'chs',
 				showiconyanjing1: true,
 				disable:true,
 				type:'',
-				isCheck:false
+				isCheck:false,
 			}
 		},
 		computed: {
@@ -105,7 +107,8 @@
 				'getIncode',
 				'getLogin',
 				'getLangType',
-				'getLoginInfo'
+				'getLoginInfo',
+				'getUserList'
 			])
 		},
 		onLoad(e){
@@ -114,17 +117,19 @@
 			}
 		},
 		onShow() {
-			console.log(this.getLogin);
+			// console.log(this.getLogin);
 			forceUpdate(this.getLangType)
 			this.name = this.getLoginInfo.username
 			this.phone = this.getLogin.username
 			this.pass = this.getLogin.password
+			// this.phone=App.globalData.data.username;
+			// this.pass=App.globalData.data.password;
 			this.curLang = this.$i18n.locale
 			// console.log(this.$i18n)
 			// I18N = this.$i18n
-			// console.log(this.getLoginInfo);
-			if(this.getLoginInfo.email){
+			if(this.getLoginInfo.username){
 				if(this.getLoginInfo.token){
+					
 					if(this.type==2){
 						let {email, id, incode, password, paypwd, salt, status, token, username, gespwd, yqcode} = this.getLoginInfo
 						let loginfo = {email, id, incode, password, paypwd, salt, status, token:'', username, gespwd, yqcode}
@@ -172,10 +177,10 @@
 				this.disable  = true;
 			},
 			doLogin() {
-				if(!this.isChoosed){
-					showToast(this.i18n.Registration_Agreement_01)
-					return
-				}
+				// if(!this.isChoosed){
+				// 	showToast(this.i18n.Registration_Agreement_01)
+				// 	return
+				// }
 				if (!this.phone) {
 					showToast(this.i18n.enter_account)
 					return
@@ -192,6 +197,7 @@
 				}
 				if(this.isCheck) return
 				this.isCheck  = true;
+				
 				fetch('/api/login/login', _data, "post")
 					.then(res => {
 						this.isCheck  = false;
@@ -205,8 +211,30 @@
 								username: this.phone,
 								password: this.pass
 							})
+							
+							let onuser = this.getUserList.filter(item=>item.username==this.phone)
+							let userLsit = this.getUserList
+							console.log('0');
+							if(onuser.length>0){
+								console.log('1');
+								userLsit.forEach((item,index)=>{
+									if(item.username == this.phone){
+										item.username=this.phone
+										item.password=this.pass
+									}
+								})
+							}else{
+								console.log('2');
+								userLsit.push({username:this.phone,password:this.pass})
+								
+							}
+							console.log('3');
+							this.setUserList(userLsit)
 							uni.switchTab({
-								url:'/pages/index/index'
+								url:'/pages/index/index',
+								fail(res){
+									console.log(res)
+								}
 							})
 							// pageto('/pages/index/index', true)
 						} else {
@@ -217,23 +245,28 @@
 						this.isCheck  = false;
 						this.showLoad = false
 					})
+				
 			},
 			goRegister() {
-				pageto('/pages/register/register')
+				pageto('/pages/new-login/new-register')
 			},
 			switchlang(str) {
 				this.curLang  = str
 			},
 			forget() {
-				// console.log('forget')
-				pageto('/pages/forget/forget')
+				uni.navigateTo({
+					url:`/pages/new-login/verification-Mnemonic?id=${3}`
+				}) 
+				// pageto('/pages/forget/forget')
 			},
 			...mapMutations([
 				'setLoginInfo',
 				'setLogin',
-				'setLangType'
+				'setLangType',
+				'setUserList'
 			])
 		},
+		
 		components: {
 			Load
 		},
@@ -254,7 +287,14 @@
 <style lang="scss">
 @import '@/common/scss/variable.scss';
 @import '@/common/scss/global.scss';
-
+.new-register-bg{
+	position: fixed;
+	left: 0;
+	top: 0;
+	z-index: -1;
+	width: 750upx;
+	height: 417upx;
+}
 	.Registration-Agreement{
 		display: flex;
 		align-items: center;
@@ -271,6 +311,7 @@
 	}
 	.login-header{
 		padding:100upx 0 0 100upx;
+		color: $white;
 		image{
 			width: 87upx;
 			height: 96upx;
@@ -292,6 +333,7 @@
 	}
 	.right-nav-color{
 		padding-right: 30upx;
+		color: $white;
 	}
 	.messageage{
 		width: 80upx;
@@ -377,6 +419,8 @@
 		}
 	}
 	.content {
+		// background: #f00;
+		box-shadow: 0 0 20rpx rgba(0,0,0,.05);
 		width: 690upx;
 		margin-left: 30upx;
 		height: 540upx;

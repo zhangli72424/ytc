@@ -8,7 +8,13 @@
 		},
 		onHide: function() {
 			console.log('App Hide')
-		}
+		},
+		globalData:{
+			// index:0,
+			Mnemonic:uni.getStorageSync('Mnemonic')?JSON.parse(uni.getStorageSync('Mnemonic')):'',
+			data:{},
+			id:0
+		},
 	}
 </script>
 

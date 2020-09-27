@@ -3,21 +3,51 @@
 		"^u-(.*)": "uview-ui/components/u-$1/u-$1.vue"
 	},
 	"pages": [ //pages数组中第一项表示应用启动页，参考：https://uniapp.dcloud.io/collocation/pages
-		// {
-		// 	"path": "pages/first/first",
-		// 	"style": {
-		// 		"navigationStyle": "custom" ,// 隐藏系统导航栏
-		// 		"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
-		// 		"navigationBarTitleText": "",
-		// 		"backgroundColor":"#000000"
-		// 	}
-		// },
 		{
-			"path": "pages/index/index",
+			"path": "pages/first/first",
 			"style": {
 				"navigationStyle": "custom" ,// 隐藏系统导航栏
 				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
-				"navigationBarTitleText": ""
+				"navigationBarTitleText": "",
+				"backgroundColor":"#000000"
+			}
+		},
+		{
+			"path": "pages/wasdokij-001/wasdokij-001",
+			"style": {
+				"navigationBarTitleText": "行情",
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor": "#ffffff"
+			}
+		},
+		{
+			"path": "pages/index/mine",
+			"style": {
+				"navigationBarTitleText":"弹幕",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+			"path": "pages/mine/select-username",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTitleText":"",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+		},
+		{
+			"path": "pages/login/login",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white",
+				"app-plus":{
+					//禁止原生导航
+					"titleNView":false,
+					"bounce":"none",
+					"scrollIndicator":"none"
+				}
 			}
 		},
 		{
@@ -56,11 +86,13 @@
 				// "navigationStyle": "custom" ,// 隐藏系统导航栏
 				"navigationBarTextStyle": "black"
 			}
-		},{
-		    "path" : "pages/new-login/verification-Mnemonic2",
-		    "style" : {
-				// "navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "black"
+		},
+		{
+			"path": "pages/index/index",
+			"style": {
+				"navigationStyle": "custom" ,// 隐藏系统导航栏
+				"navigationBarTextStyle": "white", // 状态栏字体为白色，只能为 white-白色，black-黑色 二选一
+				"navigationBarTitleText": ""
 			}
 		},
 		{
@@ -70,18 +102,12 @@
 				"navigationBarTextStyle": "black"
 			}
 		},
-		
 		{
-			"path": "pages/login/login",
-			"style": {
+		    "path" : "pages/setting/setting",
+		    "style" : {
 				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white",
-				"app-plus":{
-					//禁止原生导航
-					"titleNView":false,
-					"bounce":"none",
-					"scrollIndicator":"none"
-				}
+				"navigationBarTextStyle": "black",
+				"navigationBarBackgroundColor":"#FFFFFF"
 			}
 		},
 		{
@@ -127,6 +153,7 @@
             "path" : "pages/mine/mine",
             "style" : {
 				"navigationStyle": "custom",
+				"navigationBarTextStyle": "white",
 				"navigationBarBackgroundColor":"#021A5C",
 				"app-plus":{
 					//禁止原生导航
@@ -152,9 +179,9 @@
         ,{
             "path" : "pages/assets/assets",
             "style" : {
-				"navigationBarTitleText":"资产",
-				"navigationBarBackgroundColor":"#FFFFFF",
-				"navigationBarTextStyle":"black"
+				"navigationBarBackgroundColor":"#F6F6F6",
+				"navigationBarTextStyle":"black",
+				"navigationStyle":"custom"
 			}
         }
         ,{
@@ -169,7 +196,7 @@
 		    "path" : "pages/miner/mining",
 		    "style" : {
 				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white",
+				"navigationBarTextStyle": "black",
 				"app-plus":{
 					//禁止原生导航
 					"titleNView":false,
@@ -180,6 +207,17 @@
 		},
 		{
 		    "path" : "pages/assets/recharge",
+		    "style" : {
+				"navigationBarTextStyle":"black",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"app-plus":{
+					"navigationBarTitleText":"充币",
+					"navigationBarBackgroundColor":"#FFFFFF",
+					"navigationBarTextStyle":"black"
+				}
+			}
+		},{
+		    "path" : "pages/assets/recharge-1",
 		    "style" : {
 				"navigationBarTextStyle":"black",
 				"navigationBarBackgroundColor":"#FFFFFF",
@@ -232,11 +270,7 @@
 		    "style" : {
 				"navigationBarTextStyle":"black",
 				"navigationBarBackgroundColor":"#FFFFFF",
-				"app-plus":{
-					"navigationBarTitleText":"添加地址",
-					"navigationBarBackgroundColor":"#FFFFFF",
-					"navigationBarTextStyle":"black"
-				}
+				"navigationBarTitleText":"添加地址"
 			}
 		},
 		{
@@ -340,14 +374,7 @@
 				}
 			}
 		},
-		{
-		    "path" : "pages/setting/setting",
-		    "style" : {
-				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white",
-				"navigationBarBackgroundColor":"#FFFFFF"
-			}
-		},
+		
 		{
 		    "path" : "pages/modify-login/modify-login",
 		    "style" : {
@@ -417,7 +444,7 @@
             "path" : "pages/new/new",
             "style" : {
 				"navigationStyle": "custom" ,// 隐藏系统导航栏
-				"navigationBarTextStyle": "white",
+				"navigationBarTextStyle": "black",
 				"app-plus":{
 					//禁止原生导航
 					"bounce":"none",
@@ -473,10 +500,18 @@
 				"navigationBarTextStyle": "white"
 			}
 		}
+        ,{
+            "path" : "pages/transaction/transaction",
+            "style" : {
+				"navigationBarTitleText":"币币",
+				"navigationBarBackgroundColor":"#FFFFFF",
+				"navigationBarTextStyle":"black"
+			}
+        }
     ],
 	"globalStyle": {
 		"navigationBarTextStyle": "black",
-		"navigationBarTitleText": "",
+		"navigationBarTitleText": "VISION",
 		"navigationBarBackgroundColor": "#FFFFFF",
 		"backgroundColor": "#FFFFFF"
 	},
@@ -510,8 +545,8 @@
 				"selectedIconPath": "static/tab/tab03.png"
 			},
 			{
-				"pagePath": "pages/new/new",
-				"text": "资讯",
+				"pagePath": "pages/transaction/transaction",
+				"text": "币币",
 				"iconPath": "static/tab/tab09.png",
 				"selectedIconPath": "static/tab/tab04.png"
 			},

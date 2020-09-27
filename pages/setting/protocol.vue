@@ -158,7 +158,6 @@
 	@import '@/common/scss/variable.scss';
 	.title{
 		background: #1D184F;
-		color: $white;
 		.title-text{
 			line-height: 78upx;
 			text-align: center;
@@ -166,18 +165,18 @@
 	}
 	.app-protocol{
 		padding:0 30upx 40upx;
-		color: $white;
 		.p0{
 			margin-bottom: 20upx;
 		}
 		.p1{
 			font-size: 32upx;
-			margin: 20upx 0;;
+			margin: 20upx 0;
 		}
 		.p2{
 			text-indent: 66upx;
 			font-size: 28upx;
 			margin-bottom: 10upx;
+			line-height: 40rpx;
 		}
 	}
 </style>

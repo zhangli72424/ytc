@@ -5,63 +5,72 @@
 		:is-back="true" 
 		title="我的矿机" 
 		:background="background" 
-		backIconColor="#ffffff"
-		titleColor="#ffffff">
+		backIconColor="#000000"
+		titleColor="#000000">
 			
-			<view slot="right" class="right-nav-color" hover-class="active" @tap.stop="pages">
+		<!-- 	<view slot="right" class="right-nav-color" hover-class="active" @tap.stop="pages">
 				收益记录
-			</view>
+			</view> -->
 		</u-navbar>
 		<view class="mining-top">
 			<view class="mining-top-item">
-				<text>矿机24小时收益</text>
-				<view>{{topInfo.hour_income}}</view>
+				<text>{{i18n.income_investment}}</text>
+				<view>{{topInfo.hour_income || 0 }}</view>
 			</view>
 			<view class="mining-top-item">
-				<text>矿机总收益</text>
-				<view>{{topInfo.all_income}}</view>
+				<text>{{i18n.Total_revenue}}</text>
+				<view>{{topInfo.all_income || 0}}</view>
 			</view>
-			<view class="mining-top-item">
+			<!-- <view class="mining-top-item">
 				<text>余额(ETH)</text>
 				<view>{{topInfo.balance}}</view>
-			</view>
+			</view> -->
 		</view>
-		<view class="mining-top-list">
+	<!-- 	<view class="mining-top-list">
 			<view class="mining-top-list-item">
 				<text>活动矿机数</text><text>{{topInfo.a}}台</text>
 			</view>
 			<view class="mining-top-list-item">
 				<text>累计矿机数</text><text>{{topInfo.b}}台</text>
 			</view>
-		</view>
+		</view> -->
 		
 		
 		<view class="content">
 			
 			<view class="content-nav">
-				<view class="content-nav-item" @tap.stop="ChangeNav('0')" :class="{'active':navIndex==0}">已购买</view>
-				<view class="content-nav-item" @tap.stop="ChangeNav('1')" :class="{'active':navIndex==1}">待付款</view>
-				<view class="content-nav-item" @tap.stop="ChangeNav('2')" :class="{'active':navIndex==2}">待确认</view>
-				<view class="content-nav-item" @tap.stop="ChangeNav('3')" :class="{'active':navIndex==3}">已驳回</view>
+				<view class="content-nav-item" @tap.stop="ChangeNav('0')" :class="{'active':navIndex==0}">{{i18n.Financial_income}}</view>
+				<view class="content-nav-item" @tap.stop="ChangeNav('1')" :class="{'active':navIndex==1}">{{i18n.income_investments}}</view>
+				<!-- <view class="content-nav-item" @tap.stop="ChangeNav('2')" :class="{'active':navIndex==2}">待确认</view>
+				<view class="content-nav-item" @tap.stop="ChangeNav('3')" :class="{'active':navIndex==3}">已驳回</view> -->
 			</view>
 			
 			
 			<block v-for="(item,index) in list" :key="index">
 				<view class="list">
+					<view class="list-t">
+						<view class="title">{{item.typeStr}}</view>
+						<view class="time">{{item.time}}</view>
+					</view>
+					<view class="list-r">
+						<view class="status">{{item.status==1?'未结算':'已结算'}}</view>
+						<view class="prise">{{Nums}}<text>USDT</text></view>
+					</view>
+					
 					<!-- <image class="list-bg" :src="'../../static/image/ming'+(item.shop_id-1)+'.png'" mode="widthFix" lazy-load></image> -->
-					<view class="list-title-ti">
+					<!-- <view class="list-title-ti">
 						<text v-if="navIndex==0">{{i18n.Current_status}}:正常</text>
 						<text v-if="navIndex!=0">{{i18n.Current_status}}:{{navIndex==1?'待付款':navIndex==2?"待确认":'已驳回'}}</text>
 					</view>
 					<view class="list-title">
 						<view :style="{'color':item.shop_id==1?'#FED094':item.shop_id==2?'#21A8F6':item.shop_id==3?'#0DC9FF':'#3F4EAE'}">{{item.title}}</view>
 						<view class="">
-							<text>购买日:{{item.time}}</text>
+							<text>购买日:{{item.time}}</text> -->
 							<!-- <text>产出到账:{{item.dtime}}</text> -->
-							<text>订单编号:{{item.tradeid}}</text>
+							<!-- <text>订单编号:{{item.tradeid}}</text>
 						</view>
-					</view>
-					<view class="list-li">
+					</view> -->
+					<!-- <view class="list-li">
 						<view class="list-li-item">
 							<view :style="{'color':item.shop_id==1?'#FF4539':item.shop_id==2?'#27ce8a':item.shop_id==3?'#FCD45F':'#E67B2D'}">{{item.th_day}} 天</view>
 							<text>服务周期</text>
@@ -74,8 +83,8 @@
 							<view :style="{'color':item.shop_id==1?'#FF4539':item.shop_id==2?'#27ce8a':item.shop_id==3?'#FCD45F':'#E67B2D'}">{{item.num | formatParsefloat}}</view>
 							<text>购买数量</text>
 						</view>
-					</view>
-					<template v-if="type==1">
+					</view> -->
+					<!-- <template v-if="type==1">
 						<view class="list-li">
 							<view class="list-li-item">
 								<view :style="{'color':item.shop_id==1?'#FF4539':item.shop_id==2?'#27ce8a':item.shop_id==3?'#FCD45F':'#E67B2D'}">{{item.income}}</view>
@@ -90,136 +99,23 @@
 								<text>装机时间(天)</text>
 							</view>
 						</view>
-					</template>
+					</template> -->
 					
 					
-					<view class="list-li-btn" v-if="type==1">
+					<!-- <view class="list-li-btn" v-if="type==1">
 						<button type="default"  hover-class="active" @tap.stop="signature(item)">{{item.sign?'查看详情':'立即签名'}}</button>
 					</view>
 					<view class="list-li-btn" v-if="type==2">
 						<button type="default"  hover-class="active" @tap.stop="Deliver(item)">前往付款</button>
-					</view>
+					</view> -->
 				</view>
 			</block>
 			<view class="nodata" v-if="noMores">
-				没有更多~
+				{{i18n.No_more}}~
 			</view>
 		</view>
 		<view class="nodata" v-if="list.length == 0">
 			<image src="../../static/imgs/nodata.png" mode="widthFix" lazy-load></image>
-		</view>
-		<view class="popule" v-if="showpopule" :class="{'animated bounceInUp ':showpopule}" @tap.stop="showpopule=!showpopule;num=1">
-				<view class="popule-content" @tap.stop="''">
-					<view class="popule-list">
-						<view>{{balace_info.title}}</view>
-						<text>{{i18n.Price}}：{{balace_info.total}} ETHQ</text>
-					</view>
-					
-					<!-- <view class="popule-list-info"> -->
-						<!-- <view></view> -->
-						<!-- <text>算力值 13676.21 CPD</text> -->
-						<!-- <view>矿机总产值 <text>{{balace_info.all_cz | formatParsefloat}}</text> U</view> -->
-				<!-- 		<view>日产币 <text>{{balace_info.day_cb | formatParsefloat}}</text> EKN</view> -->
-						<!-- <view>产币天数 <text>{{buy_status=='0'?balace_info.day_yx1:balace_info.day_yx2}}</text> 天</view> -->
-						<!-- <view>剩余可购买数量 <text>{{balace_info.user_xz | formatParsefloat}}</text> </view> -->
-					<!-- </view> -->
-					
-					
-					<view class="popule-combination-num">
-						<text class="popule-combination-num-title">{{i18n.Purchase_quantity}}</text>
-						<checkbox-group @change="changeChecked">
-							<view class="combination-content">
-								<view class="combination-li">
-									<label>
-										<checkbox value="wallet" :checked="firCheck" color="#2cd3ab" style="transform:scale(0.7)" />
-										<text>{{i18n.Fund_wallet}}</text>
-									</label>
-									<view class="">
-										<input type="text" @input="input1" v-model="num1" :disabled="noInput1 && !firCheck" :placeholder="i18n.Please_enter_quantity">
-									</view>
-								</view>
-								<view class="combination-li">
-									<label>
-										<checkbox value="contract" :checked="lasCheck" color="#2cd3ab" style="transform:scale(0.7)" />
-										<text>{{i18n.Contract_wallet}}</text>
-									</label>
-									<view class="">
-										<input type="text" @input="input2" v-model="num2" :disabled="noInput2 && !lasCheck" :placeholder="i18n.Please_enter_quantity">
-									</view>
-								</view>
-								
-								
-							</view>
-						</checkbox-group>
-						
-					</view>
-					
-					<view class="popule-list-real">
-						<text>{{i18n.Actual_price_paid}}</text>
-						<view>{{remaleNum}}</view>
-					</view>
-				<!-- 	<view class="popule-num-content">
-						<text>{{i18n.Purchase_quantity}}（T）</text>
-						<view class="popule-num">
-							<button type="default" @tap.stop="less" hover-class="active">-</button>
-							<input type="number" v-model="num">
-							<button type="default" @tap.stop="add" hover-class="active">+</button>
-						</view>
-					</view> -->
-			<!-- 		<view class="popule-list-real">
-						<text>{{i18n.total}}</text>
-						<view>{{num*info.price}} CPD</view>
-					</view> -->
-					<view class="popule-meg">
-						<text>{{i18n.Account_Balance}}：</text>
-						<view >{{i18n.Fund_wallet}}{{balace_info.zj_qb}}(ETHQ) + {{i18n.Contract_wallet}} {{balace_info.hy_qb}}(ETHQ)</view>
-					</view>
-					<view class="popule-nav">
-						<view>
-							<button type="default" hover-class="active" @tap.stop="showpopule=!showpopule;num=1">{{i18n.cancel}}</button>
-						</view>
-						<view>
-							<button type="default" hover-class="active" :loading="loadings" @tap.stop="comfirm">{{i18n.Place_an_order}}</button>
-						</view>
-					</view>
-				</view>
-			</view>
-		<!-- 		<view class="bottom-btn">
-				<button type="default" hover-class="active" @tap.stop="pages">我的节点</button>
-			</view> -->
-	
-			<pay-pwd 
-			:maxlength="6" 
-			:isPwd="true" 
-			:isSHow="shows" 
-			:isShows="isshows"
-			:isShowss="showss"
-			@close="close"
-			@input-again="inputAgain"
-			@finish="finish"></pay-pwd>
-<!-- 			<message
-			:shows="showMess" 
-			:message="i18n.no_paypwd_mes"
-			@jump="toModifypwd"
-			@close="closeMess"></message> -->
-		<view class="show-mes-popule" v-if="showPo" @tap.stop="showPo=!showPo" :class="{'animated bounceInUp fast':showPo}">
-			<view class="show-mes-popule-content" @tap.stop="''">
-				<view class="show-mes-popule-con">
-					<view class="show-mes-popule-close" @tap.stop="showPo=!showPo">
-						<i class="icon iconfont icon-cha"></i>
-					</view>
-					<view class="show-mes-popule-con-title">
-						{{i18n.prompt}}
-					</view>
-					<view class="show-mes-popule-con-c">
-						{{showMesg}}
-					</view>
-					<view class="show-mes-popule-button">
-						<button type="default" hover-class="active" @tap.stop="showPo=!showPo">取消</button>
-						<!-- <button type="default" hover-class="active" @tap.stop="pagebacks">前往C2C</button> -->
-					</view>
-				</view>
-			</view>
 		</view>
 	</view>
 </template>
@@ -262,7 +158,10 @@
 				page:1,
 				type:1,
 				topInfo:{},
-				noMores:false
+				noMores:false,
+				rows:1,
+				types:60,
+				Nums:0
 			}
 		},
 		computed: {
@@ -301,6 +200,7 @@
 			this.list =[]
 			this._getList();
 			this.getType();
+			console.log(this.list,"listlist")
 		},
 		onReachBottom(){
 			this._getList();
@@ -329,75 +229,7 @@
 					url:'./info'
 				})
 			},
-			input1(e){
-				if(this.lasCheck){
-					if(e.detail.value==parseInt(this.balace_info.total)/2){
-						this.num1 = 0;
-						this.noInput1= true
-						// #ifdef APP-PLUS
-						plus.key.hideSoftKeybord();
-						// #endif
-						return
-					}
-					if(e.detail.value>parseInt(this.balace_info.total)/2){
-					if((e.detail.value+parseInt(this.num2))<parseInt(this.balace_info.total)/2){
-						this.num2 = parseInt(this.balace_info.total)/2- e.detail.value
-						this.noInput1= true
-						this.noInput2 = true
-						return
-					}else{
-						this.num1 = parseInt(this.balace_info.total)/2;
-						this.num2= 0
-						// #ifdef APP-PLUS
-						plus.key.hideSoftKeybord();
-						// #endif
-					}
-					}else{
-						this.num2= parseInt(this.balace_info.total)/2-e.detail.value
-					}
-				}
-				
-				if(e.detail.value>parseInt(this.balace_info.total)/2){
-					this.noInput1= true
-					this.num1=parseInt(this.balace_info.total)/2
-					return
-				}
-				this.noInput1= false
-			},
-			input2(e){
-				if(this.firCheck){
-					if((parseInt(this.num1))==parseInt(this.balace_info.total)/2){
-						this.num2 = 0;
-						// #ifdef APP-PLUS
-						plus.key.hideSoftKeybord();
-						// #endif
-						return
-					}
-					if(e.detail.value>parseInt(this.balace_info.total)/2){
-						if((e.detail.value+parseInt(this.num2))<=parseInt(this.balace_info.total)/2){
-							this.num1 = parseInt(this.balace_info.total)/2- e.detail.value
-							this.noInput1= false
-							this.noInput2 = false
-						}else{
-							this.num2 = parseInt(this.balace_info.total)/2;
-							this.num1= 0
-							// #ifdef APP-PLUS
-							plus.key.hideSoftKeybord();
-							// #endif
-						}
-					}else{
-						this.num1= parseInt(this.balace_info.total)/2-e.detail.value
-					}
-					
-					return	
-				}
-				if(e.detail.value>parseInt(this.balace_info.total)/2){
-					this.noInput2 = false
-					this.num2=parseInt(this.balace_info.total)/2
-					return
-				}
-				this.noInput2= true
-			},
+			
 			changeChecked(e){
 				let value = e.detail.value
 				if(value.includes('wallet')){
@@ -414,146 +246,10 @@
 					this.num2=''
 				}
 			},
-			close(val){
-				if(val==1){
-					this.shows = false;
-					this.showss = false;
-					this.showpwd = false;
-					this.loadings = false;
-				}else{
-					this.shows = val;
-					this.showpwd = val;
-					this.showss = val
-				}
-			},
-			inputAgain(val){
-				this.shows = false;
-				this.showpwd = true;
-				this.loadings = false;
-			},
-			comfirm(){
-				if(!this.getLoginInfo.paypwd){
-					this.showMess = !this.showMess
-					return
-				}
-				// console.log(validator.posPattern(this.num));
-				let mstacs = /^\d+$/
-				console.log(mstacs.test(this.num1));
-				if(this.num1){
-					if(!mstacs.test(this.num1)){
-						showToast(this.i18n.p_enter_zh)
-						return
-					}
-				}
-				if(this.num2){
-					if(!mstacs.test(this.num2)){
-						showToast(this.i18n.p_enter_zh)
-						return
-					}
-				}
-				if(parseInt(this.num1)>parseInt(this.balace_info.zj_qb)){
-					this.showMesg = this.getLangType=='chs'?'资金钱包余额不足':'Insufficient funds wallet balance';
-					this.showpopule=false
-					this.loadings = false
-					this.showPo = true
-					return
-				}
-				if(parseInt(this.num2)>parseInt(this.balace_info.hy_qb)){
-					this.showMesg = this.getLangType=='chs'?'合约钱包余额不足':'Insufficient contract wallet balance';
-					this.showpopule=false
-					this.loadings = false
-					this.showPo = true
-					return
-				}
-				if(this.num1 && this.num2){
-					if(parseInt(this.num1)+parseInt(this.num2)<parseInt(this.balace_info.total)/2){
-						this.showMesg = this.getLangType=='chs'?'数量不对，请重新输入':'The quantity is wrong, please re-enter';
-						this.showpopule=false
-						this.loadings = false
-						this.showPo = true
-						return
-					}
-					
-				}else if(!this.num1 && this.num2){
-					if(parseInt(this.num2)<parseInt(this.balace_info.total)/2){
-						this.showMesg = this.getLangType=='chs'?'数量不对，请重新输入':'The quantity is wrong, please re-enter';
-						this.showpopule=false
-						this.loadings = false
-						this.showPo = true
-						return
-					}
-				}else if(this.num1 && !this.num2){
-					if(parseInt(this.num1)<parseInt(this.balace_info.total)/2){
-						this.showMesg = this.getLangType=='chs'?'数量不对，请重新输入':'The quantity is wrong, please re-enter';
-						this.showpopule=false
-						this.loadings = false
-						this.showPo = true
-						return
-					}
-				}
-				
-				 console.log('wo tiaoguo l ');
-				// if(!this.yzm){
-				// 	showToast(this.i18n.enter_vcode)
-				// 	return;
-				// }
-				if(this.shows) return;
-				// console.log(this.shows);
-				this.showpopule=!this.showpopule
-				this.loadings = true;
-				this.shows  = true;
-				this.isCheck = false;
-			},
-			finish(val){
-				this.loadings = false;
-				let data = {
-					orderid:this.balace_info.id,
-					num1:this.num1,
-					num2:this.num2,
-					paypwd:val,
-					// yzm:this.yzm,
-					token_id:1
-				}
-				this.laoding = true;
-				if(this.isCheck) return;
-				this.isCheck = true;
-				fetch('/api/shop/doingWk',data,'POST')
-					.then(res=>{
-						this.isCheck = false;
-						this.laoding = false;
-						showToast(res.data.msg)
-						if(res.data.code){
-							this._getList();
-							// this.showpopule=!this.showpopule
-							this.num = 1;
-							// this.yzm=''
-						}
-					})
-					.catch(err=>{
-						this.isCheck = false;
-						this.laoding = false;
-					})
-			},
 			getType(){
 				fetch('/api/index/index','','post')
 					.then(res=>{
 						this.tabInfo = res.data.data.zd_type;
-					})
-					.catch(err=>{
-						console.log(err.data.msg);
-					})
-			},
-			dailyRelease(){
-				if(this.is_sf){
-					showToast(this.i18n.Released_today)
-					return
-				}
-				fetch('/api/shop/spoc_js','','post')
-					.then(res=>{
-						showToast(res.data.msg)
-						// if(res.data.code){
-							this._getList();
-						// }
 					})
 					.catch(err=>{
 						console.log(err.data.msg);
@@ -575,39 +271,33 @@
 				_updataTabBar(this.getTextArr, this.getLangType);
 			},
 			_getList() {
-				fetch('/api/bee/usertrade', {page:this.page,rows:10,type:this.type}, "post")
-					.then(res => {
-						this.topInfo = res.data.data.info
-						if(res.data.data.shoplist.length==0){
-							return
-						};
-						if(res.data.data.shoplist.length<10){
+				let data={
+					type:this.navIndex==1?61:60,
+					page:this.page,
+					rows:10
+				}
+				fetch('/api/ytc/userwealth',data,'post').then(res=>{
+					this.topInfo.hour_income = res.data.data.total
+					this.topInfo.all_income = res.data.data.revenue
+					console.log(res.data.code,"code")
+					if(res.data.code==1){
+						if(res.data.data.record.length==0)
+						if(res.data.data.record.length<10){
 							this.noMores = true;
+							return
 						}
-						if (res.data.code == 1) {
-							if(this.page==1){
-								this.list = res.data.data.shoplist
-							}else{
-								
-								this.list = this.list.concat(res.data.data.shoplist)
-							}
-							this.page++
-							//console.log(JSON.stringify(this.list));
-							// 0 运行中  1未付尾款  2是未预约下一轮  3已完成可提现
-							this.list.forEach((item,index) => {
-								this.list[index].buy_num = Number(item.num)
-								this.list[index].img = this.getRequestUrl + item.img
-								// this.list[index].number = parseInt(Number(item.num)*10000000)/100000
-								this.list[index].amounts = parseInt(Number(item.amount*1000000))/10000
+						if(this.page==1){
+							this.list = res.data.data.record;
+							this.page++;
+							this.list.forEach((item,index)=>{
+								let res =this.list[index].num;
+								this.Nums=parseInt(res)
 							})
-							console.log(this.list);
-						} else {
-							showToast(res.data.msg)
+						}else{
+							this.list = this.list.concat(res.data.data.record)
 						}
-					})
-					.catch(err => {
-						showToast(this.i18n.request_fail)
-					})
+					}
+				})
 			},
 			getmima(e) {
 				console.log(e)
@@ -636,11 +326,11 @@
 	.mining-top{
 		display: flex;
 		flex-wrap: wrap;
-		padding-top: 60rpx;
+		padding-top: 40rpx;
 		background: linear-gradient(to right, #092FEE, #145AC2);
 		.mining-top-item{
 			width: 50%;
-			padding-bottom: 30rpx;
+			padding-bottom: 40rpx;
 			text{
 				margin-left: 60rpx;
 				font-size: 22rpx;
@@ -677,7 +367,6 @@
 .app-ecology {
 	.right-nav-color{
 		padding-right: 30upx;
-		color: $white;
 		display: flex;
 		align-items: center;
 		font-size: 26upx;
@@ -985,8 +674,8 @@
 		text-align: center ;
 		image{
 			margin: 0 auto;
-			width: 620upx;
-			height: 620upx;
+			width: 134rpx;
+			height: 161upx;
 			flex-shrink: 0;
 		}
 	}
@@ -996,10 +685,10 @@
 			display: flex;
 			align-items: center;
 			.content-nav-item{
-				color: $white;
 				font-size: 26rpx;
 				margin-right: 57rpx;
 				line-height: 110rpx;
+				color: #000000;
 				&.active{
 					color: #0669DC;
 					margin-right: 44rpx;
@@ -1012,8 +701,27 @@
 			border-radius: 20upx;
 			position: relative;
 			padding-bottom: 30upx;
-			background-color: $page-bg-color5;
+			background-color:#FFFFFF;
 			margin-bottom: 20upx;
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 30rpx 20rpx;
+			font-size: 26rpx;
+				.time,.prise{
+					margin-top: 20rpx;
+				}
+				.prise{
+					color: #FD8002;
+					font-size: 30rpx;
+					text{
+						color: #000000;
+						font-size: 26rpx;
+					}
+				}
+				.title,.status{
+					font-size: 26rpx;
+				}
 			.list-bg{
 				position: absolute;
 				left: 0;

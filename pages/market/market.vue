@@ -339,8 +339,8 @@
 		width: 620upx;
 		margin: 0 auto;
 		image{
-			width: 620upx;
-			height: 620upx;
+			width: 134rpx;
+			height: 161upx;
 			flex-shrink: 0;
 			margin: 0 auto;
 		}

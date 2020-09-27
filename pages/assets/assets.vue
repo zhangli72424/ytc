@@ -1,5 +1,10 @@
 <template>
 	<view>
+		<u-navbar :is-back="false" :background="background">
+			<view class="index-top">
+				{{i18n.My_assets}}
+			</view>
+		</u-navbar>
 		<view class="assets-title animated bounceInUp fast">
 			<view class="assets-title-top">
 				<text>{{i18n.TotalAssets}}(USDT）</text> <i class="icon iconfont" @tap.stop="switchShow" :class="[isShow?'iconai-eye':'iconyanjing-bi']"></i>
@@ -17,7 +22,7 @@
 		</view>
 		
 		<view class="assets-content">
-			<view class="assets-content-title animated bounceInUp fast">资产列表</view>
+			<view class="assets-content-title animated bounceInUp fast">{{i18n.Asset_list}}</view>
 			<block v-for="(item,index) in list" :key="index">
 				<view class="list animated bounceInUp fast" @tap.stop="clickDump(index)">
 					<view class="list-top">
@@ -25,7 +30,7 @@
 							<image lazy-load :src="item.logo"></image>
 							<view>
 								<text>{{item.title_en}}</text>
-								<text>{{item.title_zh}}</text>
+								<!-- <text>{{item.title_zh}}</text> -->
 							</view>
 						</view>
 						<!-- <view class="_right giving-text" v-if="item.id==1">
@@ -36,9 +41,9 @@
 						</view> -->
 						<view class="_right">
 							<view class="">
-								{{item.balance}}
+								{{balance}}
 							</view>
-							<text>≈ {{item.usd_price}} (U)</text>
+							<text>≈ {{usd_price}} (U)</text>
 						</view>
 					</view>
 					<view class="list-bottom" v-if="item.show && (item.open_type.cb==1 || item.open_type.hz==1 || item.open_type.sf==1 || item.open_type.tb==1 || item.open_type.zd==1)" 
@@ -105,6 +110,15 @@
 			]),
 		},
 		onShow(){
+			
+			this.total=0
+			this.isShow=false
+			this.list=[]
+			this.showload=false
+			this.curms=[]
+			this.balance=0
+			this.usd_price=0
+			
 			forceUpdate(this.getLangType);
 			_updataTabBar(this.getTextArr,this.getLangType);
 			this.getList()
@@ -115,7 +129,10 @@
 				isShow:false,
 				list:[],
 				showload:false,
-				curms:[]
+				curms:[],
+				background:"#F6F6F6",
+				balance:0,
+				usd_price:0
 			};
 		},
 		methods:{
@@ -130,13 +147,20 @@
 					.then(res=>{
 						this.showload = false;
 						if(res.data.code){
+							let total = res.data.data.total;
+							this.total=parseInt(total)
 							this.list = res.data.data.list;
-							this.total = res.data.data.total;
+							this.list.forEach((item,index)=>{
+								let balance=this.list[index].balance
+								this.balance=parseInt(balance)
+								let usd_price=this.list[index].usd_price;
+								this.usd_price=parseInt(usd_price)
+							})
 							
-							 let cus = this.list.filter((item,index)=>{
+							let cus = this.list.filter((item,index)=>{
 								return item.token_id==1;
 							})
-							 this.curms = cus[0]
+							this.curms = cus[0]
 							 
 							this.list.forEach((item,index)=>{
 								this.list[index].type = (item.zdf>=0?true:false)
@@ -201,10 +225,19 @@
 
 <style lang="scss" scoped>
 	@import '@/common/scss/variable.scss';
+	u-navbar{
+		background-color: #F6F6F6 !important;
+		.index-top{
+			padding-left: 36rpx;
+			font-weight: bold;
+			font-size: 40rpx;
+		}
+	}
+	
 	.assets-title{
 		position: relative;
 		// #ifdef MP-WEIXIN
-		margin: 40upx 30upx;
+		margin:0 30upx  40upx;
 		// #endif
 		// #ifdef APP-PLUS
 		margin: 80upx 30upx 40upx;
@@ -273,6 +306,7 @@
 		  }
 	}
 	.assets-content{
+		padding-top: 40rpx;
 		.assets-content-title{
 			padding:0 0 0 18rpx;
 			margin: 0 30rpx 30rpx;

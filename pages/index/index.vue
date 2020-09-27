@@ -1,82 +1,50 @@
 <template>
 	<view>
-		<uni-status-bar bgcolor="transparent"></uni-status-bar>
-		<!-- <u-navbar :is-back="false" :background="background"></u-navbar> -->
-		<view class="index-top">
-			<view class="index-top-l">
-				<text>投资收益(YTC)</text>
-				<view>{{i18n.index}}</view>
-				<text>≈56234.00 CNY</text>
+		<view class="index-banner">
+			<u-swiper :list="bannerList" height="220" mode="rect"></u-swiper>
+		</view>
+
+		<view class="bulletin">
+			<image src="../../static/imgs/notice.png"></image>
+			<swiper circular="true" vertical="true" :autoplay="true" :interval="3000" :duration="1000">
+				<swiper-item v-for="(item, index) in news" :key="index">
+					<view class="swiper-item" @tap.stop="jumDetail(index)">{{item.title}}</view>
+				</swiper-item>
+			</swiper>
+			<i class="icon iconfont icongengduo"></i>
+		</view>
+		<view class="nav-content">
+			<block v-for="(item,index) in navList" :key="index">
+				<view class="nav-item">
+					<image :src="item.img" mode="widthFix" lazy-load></image>
+					<view>{{item.text}}</view>
+				</view>
+			</block>
+			
+		</view>
+		<view class="markt-content">
+			<view class="markt-nav">
+				<view class="mark-nav-item" :class="{'active':navIndex==0}" @tap.stop="selectnav(0)">涨跌榜</view>
+				<view class="mark-nav-item" :class="{'active':navIndex==1}" @tap.stop="selectnav(1)">成交榜</view>
 			</view>
-			<u-button :ripple="true" :hair-line="false" @click="dump" ripple-bg-color="#909399" :custom-style="customStyle">查看详情</u-button>
-		</view>
-		<view class="index-top-img">
-			
-		</view>
-		<!-- <image src="../../static/imgs/index-top-img.png" mode="widthFix" lazy-load class="index-top-img"></image> -->
-		<view class="content">
-			
-			<!-- 菜单 -->
-			<view class="index-nav-list">
-				<block v-for="(item,index) in navList" :key="index">
-					<view class="index-nav-list-item" hover-class="active" @tap.stop="jumpWeb(item.url)">
-						<image :src="item.image" mode="widthFix" lazy-load></image>
-						<text>{{item.text}}</text>
+			<view class="markt-li-title">
+				<text>名称</text>
+				<text>最新价</text>
+				<text>涨跌幅</text>
+			</view>
+			<block v-for="(item,index) in list" :key="index">
+				<view class="markt-li" @tap.stop="select(item)">
+					<view class="markt-li-l">
+						{{item.coin}}<text>/USDT</text>
 					</view>
-				</block>
-				
-				
-			</view>
-			<!-- 菜单 end -->
-			<view class="index-market">
-				
-				<view class="index-market-title">
-					最新公告
-				</view>
-				
-				<view class="bulletin">
-					<!-- <image src="../../static/imgs/notice.png"></image> -->
-					<swiper circular="true" vertical="true" :autoplay="true" :interval="3000" :duration="1000">
-						<swiper-item v-for="(item, index) in news" :key="index">
-							<view class="swiper-item" @tap.stop="jumDetail(index)">{{item.title}}</view>
-						</swiper-item>
-					</swiper>
-					<text>更多</text>
-				</view>
-			</view>
-			
-			<view class="index-banner">
-				<u-swiper :list="bannerList" mode="rect"></u-swiper>
-			</view>
-			
-			<view class="index-market">
-				
-				<view class="index-market-title">
-					24H{{i18n.Quotes}}
-				</view>
-				<view class="index-market-nav">
-					<view>名称</view><view>最新价</view><view>涨跌幅</view>
-				</view>
-				<block v-for="(item,index) in list" :key="index">
-					<view class="index-market-li">
-						<view class="index-market-li-l">
-							{{item.coin}}<text>/USDT</text>
-						</view>
-						<view class="index-market-li-c" :class="item.type?'green':'red'">
-							{{item.last}}
-						</view>
-						<view class="index-market-li-r" :class="item.type?'green':'red'">
-							<view>{{item.type?'+':'-'}}{{item.zdf}}</view>
-						</view>
+					<view class="markt-li-c" :class="[item.type?'color-green':'color-red']">{{item.last}}</view>
+					<view class="markt-li-r" :class="[item.type?'color-green':'color-red']">
+						{{item.type?'+':'-'}}{{item.zdf}}
 					</view>
-				</block>
-				<!-- <block v-for="(item,index) in list" :key="index">
-					<market-list :item="item" :index="index"></market-list>
-				</block> -->
-			</view>
+				</view>
+			</block>
+			
 		</view>
-		
-		
 		
 		
 		<load v-if="showLoad"/>
@@ -84,6 +52,7 @@
 </template>
 
 <script>
+	import App from '../../App.vue'
 	import marketList from '@/components/common/market-list.vue';
 	import Load from '@/components/common/load.vue';
 	import {pageto, showToast, fetch, updownLine, forceUpdate, diff_txt, _updataTabBar} from '@/common/js/util.js'
@@ -95,29 +64,12 @@
 		},
 		data() {
 			return {
-				customStyle:{
-					width:'154rpx',
-					height:"52rpx",
-					lineHeight:"52rpx",
-					background:"#0E39B8",
-					color:"#ffffff",
-					borderRadius:"8rpx",
-					fontSize:"22rpx",
-					padding:"0",
-					border:"none"
-				},
 				showLoad:false,
-				title: 'Hello',
-				background:'transparent',
-				list:[],
-				news:[],
-				leaderList:[],
-				wangnuozongsuanli:0,
-				liutongliang:0,
-				suanli:0,
-				yitouru:0,
 				bannerList:[],
-				navList:[]
+				news:[],
+				navList:[],
+				navIndex:0,
+				list:[]
 			}
 		},
 		computed:{
@@ -126,81 +78,72 @@
 			},
 			...mapGetters([
 				'getRequestUrl',
-				'getLangType',
+				'getLangType',//
 				'getLogin',
 				'getLoginInfo',
-				'getTextArr'
+				'getTextArr',//,
 			])
 		},
 		onShow(){
+			this.showLoad=false;
 			this.navList = [
-				{
-					image:require('../../static/imgs/index-nav0.png'),
-					text:'转账',
-					url:''
-					
-				},
-				{
-					image:require('../../static/imgs/index-nav1.png'),
-					text:'矿池',
-					url:''
-				},
-				{
-					image:require('../../static/imgs/index-nav2.png'),
-					text:'账本',
-					url:''
-				},
-				{
-					image:require('../../static/imgs/index-nav3.png'),
-					text:'收款',
-					url:''
-				},
-				{
-					image:require('../../static/imgs/index-nav4.png'),
-					text:'投资',
-					url:''
-					
-				},
-				{
-					image:require('../../static/imgs/index-nav5.png'),
-					text:'DEFI',
-					url:''
-				},
-				{
-					image:require('../../static/imgs/index-nav6.png'),
-					text:'激活',
-					url:''
-				},
-				{
-					image:require('../../static/imgs/index-nav7.png'),
-					text:'质押',
-					url:''
-				}
+				{img:require('../../static/imgs/index-nav0.png'),text:'转账激活',url:''},
+				{img:require('../../static/imgs/index-nav1.png'),text:'邀请好友',url:''},
+				{img:require('../../static/imgs/index-nav2.png'),text:'孵化器',url:''},
+				{img:require('../../static/imgs/index-nav3.png'),text:'十二星系',url:''},
+				{img:require('../../static/imgs/index-nav4.png'),text:'DEFI',url:''},
+				{img:require('../../static/imgs/index-nav5.png'),text:'矿池',url:''},
+				{img:require('../../static/imgs/index-nav6.png'),text:'申购',url:''},
+				{img:require('../../static/imgs/index-nav7.png'),text:'DAPP',url:''},
 			]
-			this.getMarket()
-			this.getNotice();
-			this.getLun();
+			this.getMarket();
+			this.getLun()
+			this.getNotice()
 		},
 		methods: {
+			select(item){
+				// encodeURIComponent(data.data)
+				
+				uni.navigateTo({
+					url:`/pages/wasdokij-001/wasdokij-001?data=${item.coin}`
+				})
+			},
+			selectnav(index){
+				this.navIndex = index
+			},
 			...mapMutations([
-				'setBulletin'
+				'setBulletin','setIsFirstJum'
 			]),
-			dump(){
-				showToast('12313')
-			},
-			jumpWeb(url){
-				if(url){
-					uni.navigateTo({
-						url:url
-					})
-				}else{
-					showToast(`${this.i18n.in_development}...`)
-				}
-			},
+		
 			jumDetail(e){
 				this.setBulletin(this.news[e]);
 				uni.navigateTo({
 					url:'/pages/new/detail'
+				})
+			},
+			getMarket(){
+				this.list=[];
+				this.showLoad = true;
+				fetch('/api/wallet/getCoinMarket', {}, "post").then(res=>{
+					this.showLoad = false;
+					if(res.data.code){
+						this.list = res.data.data;
+						this.list.forEach((item,index)=>{
+							this.list[index].title_en = item.coin;
+							this.list[index].balance = item.last;
+							this.list[index].usd_price = item.last;
+							this.list[index].zdfisshow = true;
+							if(Number(item.percentChange)>=0){
+								this.list[index].zdf = item.percentChange + '%';
+								this.list[index].type = true
+							}else{
+								this.list[index].zdf = -(item.percentChange) + '%';
+								this.list[index].type = false
+							}
+						})
+					}
+				}).catch(err=>{
+					this.showLoad = false;
 				})
 			},
 			getNotice(){
@@ -236,221 +179,149 @@
 					this.showLoad = false;
 				})
 			},
-			getMarket(){
-				this.showLoad = true;
-				fetch('/api/wallet/getCoinMarket', {}, "post").then(res=>{
-					this.showLoad = false;
-					if(res.data.code){
-						this.list = res.data.data;
-						this.list.forEach((item,index)=>{
-							this.list[index].title_en = item.coin;
-							this.list[index].balance = item.last;
-							this.list[index].usd_price = item.last;
-							this.list[index].zdfisshow = true;
-							if(Number(item.percentChange)>=0){
-								this.list[index].zdf = item.percentChange + '%';
-								this.list[index].type = true
-							}else{
-								this.list[index].zdf = -(item.percentChange) + '%';
-								this.list[index].type = false
-							}
-						})
-					}
-				}).catch(err=>{
-					this.showLoad = false;
-				})
-			}
+			
 		}
 	}
 </script>
 
 <style scoped lang="scss">
-	.index-top-img{
-		position: fixed;
-		left: 0;
-		top: 0;
-		right: 0;
-		flex-shrink: 0;
-		z-index: -1;
-		width: 750upx;
-		height: 435upx;
-		background: linear-gradient(to right, #145AC2, #092FEE);
+	.index-banner{
+		padding: 140rpx 30rpx 0;
 	}
-	.index-top{
-		padding: 72rpx 30upx 90rpx;
+	.bulletin {
+		z-index: 10;
+		height: 58upx;
+		line-height: 58upx;
+		padding: 10rpx 30rpx;
 		display: flex;
-		align-items: flex-end;
-		justify-content: space-between;
-		color: $white;
-		.index-top-l{
-			flex: 1;
-			text{
-				font-size: 22rpx;
-				&:first-of-type{
-					color: #72A4F7;
-				}
-			}
-			view{
-				font-size: 48upx;
-				font-weight: bold;
-				padding: 24rpx 0 22rpx;
-			}
+		overflow: hidden;
+		align-items: center;
+		margin-bottom: 40upx;
+		background: #f7f7f7;
+		border-radius: 29rpx;
+		// padding:34rpx 0 27rpx;
+		image{
+			width: 35rpx;
+			height: 34rpx;
+			margin-right: 16rpx;
+			flex-shrink: 0;
 		}
-	}
-	.content{
-		padding: 36upx 0 0;
-		background: $white;
-		border-top-left-radius: 40rpx;
-		border-top-right-radius: 40rpx;
-		.index-market-nav{
+		text{
+			font-size: 26rpx;
+			color: #000000;
+			padding-right:27rpx ;
+		}
+		swiper {
+			height: 74upx;
+			flex: 1;	
+			padding: 0 30rpx;
+			overflow: hidden;
 			display: flex;
 			align-items: center;
-			border-top: 1rpx solid #E4E6F5;
+			text-overflow: ellipsis;
+			white-space: nowrap;
+			.swiper-item {
+				color: $light_gray;
+				font-size: 24upx;
+				height: 74upx;
+				line-height: 74upx;
+			}
+		}
+	}
+	.nav-content{
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		padding-bottom: 34rpx;
+		border-bottom: 20rpx solid #f2f2f6;
+		.nav-item{
+			width: 25%;
+			margin-top: 54rpx;
+			text-align: center;
+			image{
+				width: 65rpx;
+				height: 65rpx;
+				flex-shrink: 0;
+			}
 			view{
-				flex: 1;
-				line-height: 70rpx;
-				font-size: 24rpx;
-				color: #BED0DC;
-				text-align: center;
-				&:first-of-type{
-					text-align: left;
+				font-size: 26rpx;
+			}
+		}
+	}
+	.markt-content{
+		padding: 0 30rpx;
+		.markt-nav{
+			display: flex;
+			align-items: center;
+			.mark-nav-item{
+				font-size: 30rpx;
+				color: #C0C1CE;
+				line-height: 110rpx;
+				font-weight: bold;
+				&.active{
+					font-size: 40rpx;
+					color: #1C72DC;
 				}
-				&:last-of-type{
-					text-align: right;
+				&:first-of-type{
+					margin-right: 36rpx;
 				}
 			}
 		}
-		.index-market-li{
+		.markt-li-title{
 			display: flex;
 			align-items: center;
 			justify-content: space-between;
-			border-bottom: 1rpx solid #E4E6F5;
-			&:last-of-type{
-				border-bottom: none;
+			text{
+				display: block;
+				line-height: 110rpx;
+				font-size: 26rpx;
+				color: #C0C1CE;
 			}
-			.index-market-li-l{
-				line-height: 120rpx;
-				flex: 1;
-				text-align: left;
-				color: #262631;
+		}
+		.markt-li{
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			margin-bottom: 60rpx;
+			.markt-li-l{
+				color: #040404;
+				font-size: 30rpx;
+				text{
+					font-size: 26rpx;
+					color: #C0C1CE;
+				}
+			}
+			.markt-li-c{
 				font-size: 30rpx;
 				font-weight: bold;
-				text{
-					font-size: 20rpx;
-					color: #BED0DC;
-					font-weight: lighter;
+				&.color-green{
+					color: #45C98F;
 				}
-			}
-			.index-market-li-c{
-				line-height: 120rpx;
-				flex: 1;
-				text-align: center;
-				&.green{
-					color:#45C98F;
-				}
-				&.red{
+				&.color-red{
 					color: #E64747;
 				}
 			}
-			.index-market-li-r{
-				flex: 1;
-				// text-align: right;
-				view{
-					margin: 0 0 0 auto;
-					width: 160rpx;
-					height: 60rpx;
-					line-height: 60rpx;
-					text-align: center;
-					color: $white;
-					font-size: 30rpx;
-					font-weight: bold;
+			.markt-li-r{
+				color: #FFFFFF;
+				width: 160rpx;
+				height: 60rpx;
+				line-height: 60rpx;
+				text-align: center;
+				border-radius: 4rpx;
+				&.color-green{
+					background-color: #45C98F;
 				}
-				&.green{
-					view{
-						background: #45C98F;
-					}
-				}
-				&.red{
-					view{
-						background: #E64747;
-					}
-				}
-			}
-		}
-		.index-banner{
-			padding: 0 30rpx;
-		}
-		.bulletin {
-			z-index: 10;
-			height: 58upx;
-			line-height: 58upx;
-			display: flex;
-			overflow: hidden;
-			align-items: center;
-			margin-bottom: 40upx;
-			background: #f7f7f7;
-			border-radius: 29rpx;
-			// padding:34rpx 0 27rpx;
-			text{
-				font-size: 26rpx;
-				color: #000000;
-				padding-right:27rpx ;
-			}
-			swiper {
-				height: 74upx;
-				flex: 1;	
-				padding: 0 30rpx;
-				overflow: hidden;
-				display: flex;
-				align-items: center;
-				text-overflow: ellipsis;
-				white-space: nowrap;
-				.swiper-item {
-					color: $light_gray;
-					font-size: 24upx;
-					height: 74upx;
-					line-height: 74upx;
+				&.color-red{
+					background-color: #E64747;
 				}
 			}
 		}
 		
 	}
-	.index-nav-list{
-		// padding: ;
-		display: flex;
-		width: 100%;
-		flex-wrap: wrap;
-		justify-content: space-between;
-		align-items: center;
-		.index-nav-list-item{
-			width: 25%;
-			// flex: 2;
-			padding: 5rpx 0 20rpx;
-			text-align: center;
-			&.active{
-				background: rgba(255,255,255,.1);
-				border-radius: 4upx;
-			}
-			image{
-				width: 70upx;
-				height: 70upx;
-				flex-shrink: 0;
-			}
-			text{
-				display: block;
-				color: $black;
-				font-size: 26upx;
-			}
-		}
-	}
-	.index-market{
-		padding: 40upx 30upx 0;
-		// border-top: 2upx #2b2860 solid;
-		.index-market-title{
-			font-size: 34upx;
-			font-weight: bold;
-			color: $black;
-			padding-bottom: 30upx;
-		}
-	}
+	
+	
+	
+	
+	
+	
 </style>

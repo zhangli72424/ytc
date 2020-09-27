@@ -59,7 +59,20 @@ const mutatinos = {
 	},
 	setId(state,val){
 		state.id=val
-	}
+	},
+	setMnemonic(state,val){
+		state.Mnemonic=val;
+	},
+	setIsFirstJum(state,val){
+		state.isFirstJum=val;
+	},
+	setInTeam(state,val){
+		state.inTeam=val;
+	},
+	setUserList(state, val){
+		state.userList = val
+		uni.setStorageSync('userList', val);
+	},
 	
 	
 }

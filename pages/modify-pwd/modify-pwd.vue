@@ -3,13 +3,13 @@
 		<view class="content">
 			<!-- <view class="login-title">忘记密码</view> -->
 			<view class="li">
-				<input type="text" :placeholder="i18n.enter_account" v-model="username" disabled>
+				<input type="text" disabled :placeholder="i18n.enter_account" v-model="phone">
 				<!-- <text class="iconfont icon-cha" @tap="phone=''"></text> -->
 			</view>
-			<view class="li">
+		<!-- 	<view class="li">
 				<input type="text" :placeholder="i18n.enter_vcode" v-model="vcode" maxlength="6">
 				<view class="v-code"><Vcode :account="phone"></Vcode></view>
-			</view>
+			</view> -->
 			<view class="li">
 				<input :type="showiconyanjing1 ? 'password' : 'text'" :placeholder="i18n.enter_new_pass" v-model="pass" maxlength="6">
 				<text class="iconfont" :class="showiconyanjing1 ? 'icon-yanjing1' : 'icon-yanjing2'" @tap="showiconyanjing1 = !showiconyanjing1"></text>
@@ -54,17 +54,22 @@
 				invitation: '',
 				showiconyanjing1: true,
 				showiconyanjing2: true,
-				isCheck:false
+				isCheck:false,
 			}
 		},
-		onLoad() {
+		onLoad(e) {
+			let str=JSON.parse(e.str)
+			let arr=""
+			str.forEach((item,index)=>{
+				console.log(item.data)
+				arr+=item.data
+			})
+			this.vcode=arr
 			uni.setNavigationBarTitle({
 				title:this.i18n.modify_pwd
 			})
-			
-			this.username = this.getLoginInfo.email
-			console.log(this.getLoginInfo.username);
-			this.phone = this.getLoginInfo.email
+			this.username = this.getLoginInfo.username
+			this.phone = this.getLoginInfo.username
 		},
 		onNavigationBarButtonTap(e){
 			if(e.index=='0'){
@@ -94,10 +99,10 @@
 					showToast(this.i18n.enter_account)
 					return
 				}
-				if(!this.vcode){
-					showToast(this.i18n.enter_vcode)
-					return
-				}
+				// if(!this.vcode){
+				// 	showToast('请输入助记词')
+				// 	return
+				// }
 				if(!this.pass){
 					showToast(this.i18n.enter_new_pass)
 					return
@@ -110,7 +115,7 @@
 					showToast(this.i18n.Inconsistent_payment_password)
 					return
 				}
-				if(this.isCheck) return
+				if(this.isCheck)
 				this.isCheck  = true;
 				this.showLoad = true;
 				let _data = {
@@ -125,7 +130,8 @@
 					lang_type: this.getLang,
 					type: this.getLoginInfo.incode?2:1
 				}
-				// console.log(_data)
+				console.log(_data)
+				
 				fetch('/api/user/setPaypwd', _data, 'POST')
 					.then(res => {
 						this.isCheck  = false;
@@ -137,9 +143,12 @@
 							let {email, id, incode, password, paypwd, salt, status, token, username, gespwd, yqcode} = this.getLoginInfo
 							let loginfo = {email, id, incode, password, paypwd:this.pass, salt, status, token, username, gespwd, yqcode}
 							this.setLoginInfo(loginfo)
-							setTimeout(()=>{
-								pageback()
-							},500)
+							// setTimeout(()=>{
+							// 	pageback()
+							// },500)
+							uni.navigateBack({
+								delta:3
+							})
 						}
 						showToast(res.data.msg)
 					})
@@ -147,7 +156,12 @@
 						this.isCheck  = false;
 						// uni.hideLoading()
 						this.showLoad = false;
-						console.log(error)
+						showToast(res.data.msg)
+					})
+			
+				
+					uni.navigateTo({
+						url:'/pages/index/index'
 					})
 			},
 			tappageback() {

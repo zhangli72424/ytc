@@ -23,7 +23,7 @@ const getters = {
 	getIncode(state) {
 		return state.incode
 	},
-	getTextArr(state) {
+	getTextArr(state) {//
 		return state.textArr;
 	},
 	getUser(state) {
@@ -52,10 +52,20 @@ const getters = {
 	},
 	getCurInfo(state){
 		return state.curInfo
-	}
+	},
+	getMnemonic(state){
+		return state.Mnemonic
+	},
+	getIsFirstJum(state){
+		return state.isFirstJum
+	},
+	getInTeam(state){
+		return state.inTeam
+	},
 	
-	
-	
+	getUserList(state){
+		return state.userList
+	},
 	
 	
 	

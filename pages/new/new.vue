@@ -2,14 +2,15 @@
 	<view class="app-community">
 		<u-navbar :is-back="false"  :background="background">
 			<view class="index-top">
-				{{i18n.Latest_News}}
+				社区
+				<!-- {{i18n.Latest_News}} -->
 			</view>
 		</u-navbar>
 		<!-- <view class="pagetitle">市场</view> -->
 		<view class="community-content">
 			<view class="tabs">
-				<view class="tab" @tap="clickTip(0)"><text :class="{active: currentTab}">社区动态</text></view>
-				<view class="tab" @tap="clickTip(1)"><text :class="{active: !currentTab}">快讯</text></view>
+				<view class="tab" @tap="clickTip(0)"><text :class="{active: currentTab}">{{i18n.Community_dynamics}}</text></view>
+				<view class="tab" @tap="clickTip(1)"><text :class="{active: !currentTab}">{{i18n.news_flash}}</text></view>
 			</view>
 			<view class="list">
 				<view class="li" v-for="(item,index) in list" :key="index" 
@@ -44,7 +45,7 @@
 	export default {
 		data() {
 			return {
-				background:'#ffffff',
+				background:'#fff',
 				// true的时候是节点, false的时候是官方新闻
 				currentTab: true,
 				list: [],
@@ -194,6 +195,9 @@
 <style lang="scss">
 	@import '@/common/scss/variable.scss';
 	@import '@/common/scss/global.scss';
+	page{
+		background-color:#FFFFFF !important; 
+	}
 	.index-top{
 		font-size: 40rpx;
 		font-weight: bold;
@@ -208,8 +212,8 @@
 		width: 690rpx !important;
 		height: auto !important;
 		image{
-			width: 620rpx;
-			height: 620rpx;
+			width: 134rpx;
+			height: 161rpx;
 			-webkit-flex-shrink: 0;
 			flex-shrink: 0;
 			margin: 0 auto;
@@ -245,12 +249,13 @@
 				display: flex;
 				padding: 0 30upx;
 				position: relative;
+				padding-top: 22rpx;
 				z-index: 2;
 				.tab {
 					color: $text-gray-color7;
 					text-align: left;
 					// margin-right: 60rpx;
-					padding: 10upx 60rpx 20upx 0;
+					padding: 0upx 60rpx 10upx 0;
 					&:first-of-type{
 						border-right: 1rpx solid #000000;
 					}

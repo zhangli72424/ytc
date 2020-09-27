@@ -145,7 +145,7 @@ isPwd：是否是密码模式
 		methods:{
 			forget(){
 				uni.navigateTo({
-					url:"/pages/modify-pwd/modify-pwd"
+					url:"/pages/setting/setting"
 				})
 			},
 			//取值

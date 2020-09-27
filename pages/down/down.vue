@@ -115,6 +115,7 @@
 		width: 500upx; 
 		margin: 0 auto ;
 		text-align: center;
+		padding-top: 30rpx;
 		.btn{
 			width: 350upx;
 			line-height: 80upx;

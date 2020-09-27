@@ -20,10 +20,10 @@
 			<view class="li-tip" v-if="username">
 				{{i18n.Current_mailbox}}：{{username}}
 			</view>
-			<view class="li">
+			<!-- <view class="li">
 				<input type="text" :placeholder="i18n.enter_vcode" v-model="vcode">
 				<view class="v-code"><Vcode :account="username" type="forget"></Vcode></view>
-			</view>
+			</view> -->
 			<view class="li">
 				<input :type="showiconyanjing1 ? 'password' : 'text'" :placeholder="i18n.enter_new_pass" v-model="pass">
 				<text class="iconfont" :class="showiconyanjing1 ? 'icon-yanjing1' : 'icon-yanjing2'" @tap="showiconyanjing1 = !showiconyanjing1"></text>
@@ -67,7 +67,7 @@
 			}
 		},
 		watch:{
-			vcode(val){this.change()},
+			// vcode(val){this.change()},
 			pass(val){this.change()},
 			repass(val){this.change()}
 		},
@@ -89,13 +89,13 @@
 			])
 		},
 		methods: {
-			change(){
-				if(this.vcode && this.pass && this.repass){
-					this.disable = false;
-					return false;
-				}
-				this.disable  = true;
-			},
+			// change(){
+			// 	if(this.vcode && this.pass && this.repass){
+			// 		this.disable = false;
+			// 		return false;
+			// 	}
+			// 	this.disable  = true;
+			// },
 			check(){
 				if(this.ischeck){ return }
 				this.ischeck  = false;
@@ -130,10 +130,10 @@
 					showToast(this.i18n.enter_account)
 					return
 				}
-				if(!this.vcode){
-					showToast(this.i18n.enter_vcode)
-					return
-				}
+				// if(!this.vcode){
+				// 	showToast(this.i18n.enter_vcode)
+				// 	return
+				// }
 				if(!this.pass){
 					showToast(this.i18n.enter_new_pass)
 					return
@@ -150,7 +150,7 @@
 				this.showLoad = true;
 				let _data = {
 					username: this.phone,
-					yzm: this.vcode,
+					// yzm: this.vcode,
 					password: this.pass,
 					lang_type: this.getLang
 				}
@@ -165,7 +165,9 @@
 							// 	password: this.pass
 							// })
 							setTimeout(()=>{
-								pageback()
+								uni.navigateBack({
+									delta:2
+								})
 							},500)
 						}
 						showToast(res.data.msg)

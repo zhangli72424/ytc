@@ -114,7 +114,7 @@ export function forceUpdate (lang) {
 		return 
 	}
 	let target = I18N.messages[lang].message.Language_type;
-	 return;
+	 // return;
 	// #ifdef APP-PLUS  
 		// var server = "http://175.126.168.132/api/index/ve"; //检查更新地址
 		var server = baseUrl + "/api/index/ve"; //检查更新地   http://27.102.127.203

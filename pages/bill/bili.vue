@@ -19,14 +19,20 @@
 										<!-- <image src="../../static/imgs/purse-top-logo.png" mode=""></image> -->
 										<view class="item-h">
 											<text>{{item.time}}</text>
-											<text>{{item.typeStr}}</text>
+											<text class="item-h-text">{{item.typeStr}}</text>
 										</view>
 									</view>
 								</view>
 								<view class="list-item-i">
 									<text>{{item.num}} </text>
+									<view v-if="incomeId==79" class="status">
+										<view v-if="status==1">{{i18n.To_reviewed}}</view>
+										<view v-else-if="status==2">{{i18n.Passed}}</view>
+										<view v-else-if="status==3">{{i18n.Rejected}}</view>
+									</view>
+									
 									<!-- <text v-if="item.amount && !(incomeId==61 ||incomeId==62 || incomeId==64|| incomeId==71 || incomeId==72)">≈ {{item.amount}}</text> -->
-									<text v-if="false">≈ {{item.amount}}</text>
+									<!-- <text v-if="false">≈ {{item.amount}}</text> -->
 								</view>
 							</view>
 						</block>
@@ -71,10 +77,12 @@
 				incomeId:10,
 				lists:[],
 				isCheck:false,
-				type:''
+				type:'',
+				status:''
 			}
 		},
 		onLoad(e){
+			this.status=e.status;
 			this.type = e.type;
 			this.page = 1;
 			this.lists =[];
@@ -185,6 +193,8 @@
 							this.page ++;
 							uni.stopPullDownRefresh();
 							this.lists = res.data.data.data.data;
+							console.log(this.lists,"listtslist")
+							console.log(this.lists.status,"statatatatasta")
 							this.lists.forEach((item,index)=>{
 								// this.lists[index].num = parseFloat(item.num)
 								// item.amount = parseFloat(item.amount)
@@ -304,7 +314,7 @@
 					box-sizing: border-box;
 					margin-right: 30upx;
 					padding:0 5upx;
-					color: $white;
+					// color: $white;
 					&.act{
 						color: $theme-color;
 						// border-bottom:6upx solid $theme-color;
@@ -365,7 +375,7 @@
 				margin: 40upx 30upx 0;
 				
 				.list-item{
-					background-color: $page-bg-color5;
+					background-color: #FFFFFF;
 					display: flex;
 					align-items: center;
 					justify-content: space-between;
@@ -382,10 +392,14 @@
 						&:last-child{
 							text-align: right;
 						}
+						.status{
+							margin-top: 20rpx;
+							font-size: 26rpx;
+						}
 						text{
 							display: block;
 							font-size: 14px;
-							color: $white;
+							// color: $white;
 						}
 						.item-t{
 							overflow: hidden;
@@ -400,13 +414,15 @@
 								text{
 									display: block;
 									font-size: 12px;
-									color: #4A4B79;
 									margin-bottom: 16upx;
 									&:last-child{
 										font-size: 14px;
-										color: $theme-color;
 										font-weight: bold;
 									}
+								}
+								.item-h-text{
+									margin: 0;
+									display: inline-block;
 								}
 							}
 						}

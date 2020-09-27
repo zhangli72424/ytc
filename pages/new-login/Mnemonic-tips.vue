@@ -3,21 +3,21 @@
 		<view class="tips-content">
 			<image src="../../static/imgs/mnemonic-tips.png" mode="widthFix" lazy-load></image>
 			<view class="tips-title">
-				<view><!-- {{i18n.Backup_tips}} -->备份提示</view>
-				<text><!-- {{i18n.define_mnemo_tip3}} -->获得助记词等于拥有钱包资产所有权</text>
+				<view>备份提示</view>
+				<text>获得助记词等于拥有钱包资产所有权</text>
 			</view>
 			<view class="tips-con">
 				<view class="tips-con-i">
-					<!-- {{i18n.define_mnemo_tip1}} -->助记词由英文单词组成，请抄写并妥善保管
+					助记词由英文单词组成，请抄写并妥善保管
 				</view>
 				<view class="tips-con-i">
-					<!-- {{i18n.define_mnemo_tip2}} -->助记词如丢失，无法找回，请务必备份助记词
+					助记词如丢失，无法找回，请务必备份助记词
 				</view>
 			</view>
 			
 		</view>
 		<view class="tips-bottom-button">
-			<button hover-class="active" @tap.stop="jump"><!-- {{i18n.Create_now}} -->下一步</button>
+			<button hover-class="active" @tap.stop="jump">下一步</button>
 		</view>
 	</view>
 </template>

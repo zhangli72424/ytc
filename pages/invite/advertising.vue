@@ -16,7 +16,6 @@
 					<view>{{addressData}}</view>
 					<button type="default" hover-class="active" @tap.stop="copy">{{i18n.copy}}</button>
 				</view>
-				
 			</view>
 			<view class="advertising-content-btn">
 				<button type="default" hover-class="active" @tap.stop="save">{{i18n.Download_poster}}</button>
@@ -42,7 +41,7 @@
 		data() {
 			return {
 				background:'transparent',
-				imgsrc:'../../static/imgs/invite-bg-img.png',
+				imgsrc:'../../static/imgs/background.png',
 				isfast:false,
 				addressData:'',
 				qrSrc:'',
@@ -199,7 +198,7 @@
 		}
 	}
 	.add-cont{
-		background: rgba(255,255,255,.18);
+		background: rgba(32,60,167,.18);
 		position: absolute;
 		left: 0;
 		bottom: 0;
@@ -210,12 +209,12 @@
 		.advertising-content{
 			padding: 50upx 0 0 60upx;
 			text{
-				color: #36D01C;
+				color: #00FFFF;
 				font-size: 30upx;
 			}
 			.my-code{
 				line-height: 62upx;
-				background: #36D01C;
+				background: #0299D5;
 				border-radius: 8upx;
 				padding-left: 20upx;
 				color: $white;
@@ -225,7 +224,7 @@
 			.advertising-content-t{
 				margin: 22upx 0 44upx;
 				width: 460upx;
-				background: #36D01C;
+				background: #0299D5;
 				border-radius: 8upx;
 				overflow: hidden;
 				display: flex;

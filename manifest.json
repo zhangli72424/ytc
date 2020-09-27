@@ -1,5 +1,5 @@
 {
-    "name" : "YTC",
+    "name" : "VISION",
     "appid" : "__UNI__F0F8AA1",
     "description" : "",
     "versionName" : "1.0.0",
@@ -7,17 +7,22 @@
     "transformPx" : false,
     /* 5+App特有相关 */
     "app-plus" : {
+		"kernel":{
+			"ios":"WKWebview"
+		},
         "usingComponents" : true,
         "nvueCompiler" : "uni-app",
         "compilerVersion" : 3,
         "splashscreen" : {
-            "alwaysShowBeforeRender" : true,
-            "waiting" : true,
+            "alwaysShowBeforeRender" : false,
+            "waiting" : false,
             "autoclose" : true,
             "delay" : 0
         },
         /* 模块配置 */
-        "modules" : {},
+        "modules" : {
+            "UIWebview" : {}
+        },
         /* 应用发布信息 */
         "distribute" : {
             /* android打包配置 */

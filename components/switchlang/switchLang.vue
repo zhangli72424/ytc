@@ -85,6 +85,7 @@ export default {
 		flex-wrap: wrap;
 		padding: 56upx 46upx 50upx;
 		border-top: 1upx solid $split-line-color2;
+		justify-content: space-between;
 		.lang {
 			width: 156upx;
 			height: 66upx;

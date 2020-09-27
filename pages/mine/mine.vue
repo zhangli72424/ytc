@@ -1,23 +1,41 @@
 <template>
 	<view>
 	<view class="min-top-img">
-			<!-- <image src="../../static/imgs/mine-bg.png" mode="widthFix" lazy-load></image> -->
+			<image src="../../static/imgs/mine-bg.png" mode="widthFix" lazy-load></image>
 		</view>
 		
 		<view class="mine-top">
 			<view class="mine-info">
-				<image :src="'../../static/imgs/avatar'+imgCode+'.png'" mode="widthFix" lazy-load @tap.stop="jumpCneter"></image>
+				<image :src="'../../static/imgs/head.png'" mode="widthFix" lazy-load></image>
+				<text class="jihuo" v-if="uuid" style="background-color: #AEAEAE;">{{i18n.not_active}}</text>
+				<text class="jihuo" v-else>{{i18n.Activated}}</text>
 				<view class="mine-info-c">
 					<text class="name">{{info.nickname?info.nickname:info.username}}</text>
-					<view class="id">UID : {{info.id}}</view>
+					<view class="Invitation">
+						<view class="id">{{i18n.Invitation_code}} : {{info.user_sn || ''}} </view>
+						<view class="copy"  @click="copy" >
+							<u-button type="primary" size="mini"class="btn"  @click="copy">{{i18n.copy}}</u-button>
+						</view>
+					</view>
 					<view class="info-grade">
-						<view>{{i18n.user_level}}:{{info.name}}</view>
-						<view v-if="info.lv_m_name">{{i18n.membership_level}}:{{info.lv_m_name}}</view>
+						<view>{{i18n.user_level}}:{{info.lv +''|| ''}}</view>
+						<view v-if="info.lv_m_name">{{i18n.membership_level}}:{{info.lv_m_name || ''}}</view>
 					</view>
 				</view>
 			</view>
-			
 		</view>
+		
+		<view class="mine-nav">
+			<view class="mine-nav-item">
+				<view>0 VFI</view>
+				<text>昨日快照</text>
+			</view>
+			<view class="mine-nav-item">
+				<view>0 VFI</view>
+				<text>存币挖矿</text>
+			</view>
+		</view>
+		
 		
 		
 		
@@ -36,49 +54,52 @@
 			</view>
 		</view> -->
 		
-		
-		
-		
 		<view class="list-content">
-			<view class="list-item" hover-class="active"  @tap.stop="">
+			<view class="list-item" hover-class="active"  @tap.stop="advertising">
 				<image src="../../static/imgs/mine-nav0.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">激活生态</view>
+				<view class="list-item-text">{{i18n.Activate_ecology}}</view>
 				<view class="list-item-text-r">
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
-			<view class="list-item" hover-class="active"  @tap.stop="">
+			<view class="list-item" hover-class="active"  @tap.stop="to('team')">
 				<image src="../../static/imgs/mine-nav1.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">我的抢单</view>
+				<view class="list-item-text">我的团队</view>
 				<view class="list-item-text-r">
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
-			<view class="list-item" hover-class="active"  @tap.stop="">
+		<!-- 	<view class="list-item" hover-class="active"  @tap.stop="to('team')">
+				<image src="../../static/imgs/partner.png" mode="widthFix" lazy-load></image>
+				<view class="list-item-text">团队</view>
+				<view class="list-item-text-r">
+					<i class="icon iconfont iconxiangyou1"></i>
+				</view>
+			</view> -->
+			<view class="list-item" hover-class="active"  @tap.stop="to('history-list')">
 				<image src="../../static/imgs/mine-nav2.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">收益记录</view>
+				<view class="list-item-text">{{i18n.Revenue_records}}</view>
+				<view class="list-item-text-r">
+					<i class="icon iconfont iconxiangyou1"></i>
+				</view>
+			</view>
+			<view class="list-item" hover-class="active"  @tap.stop="to('manage')">
+				<image src="../../static/imgs/mine-nav3.png" mode="widthFix" lazy-load></image>
+				<view class="list-item-text">账户管理</view>
 				<view class="list-item-text-r">
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
 			<view class="list-item" hover-class="active"  @tap.stop="to('down')">
-				<image src="../../static/imgs/mine-nav3.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">分享APP</view>
-				<view class="list-item-text-r">
-					<i class="icon iconfont iconxiangyou1"></i>
-				</view>
-			</view>
-			
-			<view class="list-item" hover-class="active"  @tap.stop="to('selectLang')">
 				<image src="../../static/imgs/mine-nav4.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">语言设定</view>
+				<view class="list-item-text">{{i18n.Share_App}}</view>
 				<view class="list-item-text-r">
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
 			<view class="list-item" hover-class="active">
 				<image src="../../static/imgs/mine-nav5.png" mode="widthFix" lazy-load></image>
-				<view class="list-item-text">版本</view>
+				<view class="list-item-text">{{i18n.edition}}</view>
 				<view class="list-item-text-r">
 					<!-- <i class="icon iconfont iconxiangyou1"></i> -->
 					{{version || '1.0.0'}}
@@ -91,13 +112,19 @@
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
 			</view>
+			<view class="list-item" hover-class="active" v-if="info.zzlv==5"  @tap.stop="selectInfo">
+				<image src="../../static/imgs/partner.png" mode="widthFix" lazy-load></image>
+				<view class="list-item-text">{{i18n.Becoming}}</view>
+				<view class="list-item-text-r">
+					<i class="icon iconfont iconxiangyou1"></i>
+				</view>
+			</view>
+			
 			
 			
 			
 			
 			<!-- 
-			
-			
 			<view class="list-item" hover-class="active"  @tap.stop="to('selectLang')">
 				<view class="list-item-text">{{i18n.Language_switch}}</view>
 				<view class="list-item-text-r">
@@ -116,31 +143,25 @@
 				<view class="list-item-text-r">
 					<i class="icon iconfont iconxiangyou1"></i>
 				</view>
-			</view>
-			
-			
-			<view class="list-item" hover-class="active" @tap.stop="to('down')">
-				<view class="list-item-text">{{i18n.download_link}}</view>
-				<view class="list-item-text-r">
-					<i class="icon iconfont iconxiangyou1"></i>
+			</view>-->
+		
+
+		<u-modal class="show" v-model="show" @confirm="input" :title="i18n.Activate_account">
+			<view class="slot-content">
+				<view class="ipt">
+					<input type="text" v-model='value' :placeholder="i18n.Please_activation_code"/>
 				</view>
 			</view>
-			<view class="list-item" hover-class="active" @tap.stop="to('authentication')">
-				<view class="list-item-text">{{i18n.Contact_Customer_Service}}</view>
-				<view class="list-item-text-r">
-					<i class="icon iconfont iconxiangyou1"></i>
-				</view>
+		</u-modal>
+		
+		<u-modal v-model="showpopule" :title="i18n.Upgrade_requirements" @confirm="par" >
+			<view class="slot-content">
+				<view>USDT</view>
+				<view>{{i18n.quantity}} ：{{info.zzbalance}}</view>
 			</view>
-			<view class="list-item" hover-class="active" @tap.stop="to('setting')">
-				<view class="list-item-text">{{i18n.System_settings}}</view>
-				<view class="list-item-text-r">
-					<i class="icon iconfont iconxiangyou1"></i>
-				</view>
-			</view> -->
+		</u-modal>
 		
-		
-		
-		
+	
 		</view>
 		<SwitchLang :isSHow="isSHow" @cancel="cancel"></SwitchLang>
 	</view>
@@ -166,18 +187,83 @@
 				tabInfo:{},
 				info:{},
 				imgCode:'',
-				version:''
+				version:'',
+				show:false,
+				Activation:'',
+				uuid:false,
+				showpopule:false,
+				num:1,
+				value:'',
+				status:'',
 			};
 		},
+		onLoad(){
+			this.getMine();
+		},
 		onShow() {
-			console.log(this.getLoginInfo);
+			this.status=''
+			this.Activation=this.getLoginInfo.yqcode;
 			forceUpdate(this.getLangType);
 			_updataTabBar(this.getTextArr,this.getLangType);
-			this.getMine();
 			// this.getLvCk();
 			this._getVersion();
+			this.getInfo();
 		},
 		methods:{
+			...mapMutations(['setInTeam']),
+			input(){
+				fetch('/api/ytc/useractivation',{code:this.value},'post').then(res=>{
+					this.value=''
+					showToast(res.data.msg)
+				})
+			},
+			par(){
+				fetch('/api/ytc/userpartner',{},'post').then(res=>{
+					showToast(res.data.msg)
+				})
+			},
+			selectInfo(){
+				this.showpopule=true;
+			},
+			copy(){
+				if(this.Activation){
+					uni.setClipboardData({
+						data: this.info.user_sn,
+						success: function () {
+							wx.showToast({
+								title: '已复制到剪贴板'
+							});
+						}
+					});
+				}else{
+					wx.showToast({
+						title: '复制失败',
+						icon:"none"
+					});
+				}
+			},
+			mining(){
+				uni.navigateTo({
+					url:'/pages/miner/mining'
+				})
+			},
+			bill(){
+				console.log(121)
+				uni.navigateTo({
+					url:'pages/bill/bili'
+				})
+			},
+			// status(){
+			// 	fetch('/api/ytc/useractivation',{code:100218},"post").then(res=>{
+			// 		console.log(res,"resresresresres")
+			// 		if(res.data.code==1){
+						
+			// 		}
+			// 	})
+			// },
+			cancel(){
+				this.show=false;
+			},
 			_getVersion() {
 				// #ifdef APP-PLUS
 				this.version = plus.runtime.version
@@ -191,13 +277,31 @@
 					url:'/pages/new/notice'
 				})
 			},
-			jumpCneter(){
-				uni.navigateTo({
-					url:'/pages/info/info?imgCode='+this.imgCode
+			// jumpCneter(){
+			// 	uni.navigateTo({
+			// 		url:'/pages/info/info?imgCode='+this.imgCode
+			// 	})
+			// },
+			getInfo(){
+				fetch('/api/ytc/user',{},"post").then(res=>{
+					this.status=res.data.data.status;
+					if(res.data.code==1){
+						this.info=res.data.data
+						if(this.info.uuid==0){
+							this.uuid=true
+						}else{
+							this.uuid=false
+						}
+					}
+				}).catch(err=>{
+					
 				})
 			},
 			to(val){
 				switch (val){
+					case 'manage':
+						pageto('/pages/mine/select-username')
+						break;
 					case 'authentication':
 					showToast(`${this.i18n.in_development}...`)
 					return
@@ -214,6 +318,7 @@
 						pageto('/pages/hash-card/hash-card')
 						break;
 					case 'team':
+						this.setInTeam(true)
 						pageto('/pages/team/team');
 						break;
 					case 'time':
@@ -234,7 +339,7 @@
 						break;
 					case 'history-list':
 						if(this.tabInfo){
-							pageto(`/pages/bill/bili?tab=${JSON.stringify(this.tabInfo)}`);
+							pageto(`/pages/bill/bili?tab=${JSON.stringify(this.tabInfo)}&status=${this.status}`);
 						}
 						break;
 					case 'contribution':
@@ -249,6 +354,9 @@
 					default:
 						break;
 				}
+			},
+			advertising(){
+				this.show=true;
 			},
 			getLvCk(){
 				fetch('/api/index/lv_ck', '', "post").then(res=>{
@@ -283,19 +391,58 @@
 
 <style lang="scss" scoped>
 	@import '@/common/scss/variable.scss';
+	.mine-nav{
+		margin: 0 30rpx;
+		background: $white;
+		display: flex;
+		align-items: center;
+		border-radius: 10rpx;
+		.mine-nav-item{
+			padding: 54rpx 0 56rpx;
+			flex: 1;
+			text-align: center;
+			view{
+				font-size: 46rpx;
+				color: #FEB626;
+				font-weight: bold;
+			}
+			text{
+				color: #AEAEAE;
+				font-size: 24rpx;
+			}
+		}
+	}
+	.u-size-mini {
+		height: 35rpx;
+	}
+	.slot-content {
+		font-size: 28rpx;
+		color: $u-content-color;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		padding: 40rpx 60rpx;
+		.ipt{
+			background-color: #F6F6F6;
+			padding: 10rpx 20rpx;
+			border-radius: 5rpx;
+		}
+		
+	}
 	.min-top-img{
 		position: absolute;
 		left: 0;
 		top: 0;
 		width: 750upx;
 		height: 307upx;
-		background: #021A5C;
+		// background: #021A5C;
 		z-index: -1;
 		image{
 			width: 750upx;
 			height: 409upx;
 			flex-shrink: 0;
 		}
+		
 	}
 	.mine-top{
 		padding-top: 90upx;
@@ -321,22 +468,44 @@
 				border: 2upx solid $white;
 				margin-right: 26upx;
 			}
+			.jihuo{
+				background-color: #FFC64C;
+				border-radius: 10rpx;
+				width: 88rpx;
+				height: 24rpx;
+				position: absolute;
+				bottom: 17%;
+				left: 7%;
+				font-size: 18rpx;
+				line-height: 26rpx;
+			}
 			.mine-info-c{
 				display: block;
+				flex: 1;
+				text-align: left;
 				.name{
 					font-size: 40upx;
 					color: $white;
 					font-weight: bold;
 				}
-				.id{
-					color: $white;
-					font-size: 26upx;
-					margin: 16upx 0;
+				.Invitation{
+					display: flex;
+					align-items: center;
+					justify-content: space-between;
+					.id{
+						color: $white;
+						font-size: 26upx;
+						margin: 16upx 0;
+					}
+					.copy{
+						width: auto;
+						height: auto;
+						padding: 20rpx;
+					}
 				}
 				.info-grade{
 					display: flex;
 					align-items: center;
-					justify-content: center;
 					view{
 						padding: 0 18upx;
 						line-height: 36upx;

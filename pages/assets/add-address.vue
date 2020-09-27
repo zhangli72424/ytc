@@ -119,7 +119,7 @@
 		padding-top: 20upx;
 		.list{
 			padding: 36upx 30upx 0;
-			background-color: $page-bg-color5;
+			background-color: $white;
 			&.line-top{
 				padding-bottom: 40upx;
 				margin-bottom: 20upx;
@@ -131,22 +131,22 @@
 			}
 			.title{
 				font-size: 30upx;
-				color: $white;
+				color: $black;
 			}
 			.input-item{
 				display: flex;
 				justify-content: space-between;
 				align-items: center;
-				border-bottom: 1upx solid $split-line-color1;
+				border-bottom: 1upx solid $split-line-color2;
 				input{
 					line-height: 88upx;
 					height: 88upx; 
 					font-size: 28upx;
-					color: $white;
+					color: $black;
 				}
 				text{
 					font-size: 28upx;
-					color: $white;
+					color: $black;
 				}
 			}
 		}

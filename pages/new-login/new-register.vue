@@ -11,29 +11,35 @@
 		<image src="../../static/imgs/new-register-bg.png" mode="widthFix" lazy-load class="new-register-bg"></image>
 		<view class="register-content">
 			<view class="register-content-title">
-				{{i18n.Create_a_wallet}}
+				注册
 			</view>
 			<view class="register-content-view">
 				<view class="input-view">
 					<image src="../../static/imgs/register-icon-01.png" mode="widthFix" lazy-load></image>
-					<input type="text" :placeholder="i18n.Please_set_a_wallet_name" v-model="username">
+					<input type="text" placeholder="请设置用户名" v-model="username">
 				</view>
 				<view class="input-view">
 					<image src="../../static/imgs/register-icon-02.png" mode="widthFix" lazy-load></image>
-					<input type="text" :placeholder="i18n.Please_set_a_wallet_password" v-model="password">
+					<input type="text" placeholder="请设置密码" v-model="password" :password="password1">
+					<i class="iconfont"
+					 :class="[password1?'icon-yanjing1':'icon-yanjing2']"
+					 @tap.stop="password1=!password1"></i>
 				</view>
 				<view class="input-view">
 					<image src="../../static/imgs/register-icon-02.png" mode="widthFix" lazy-load></image>
-					<input type="text" :placeholder="i18n.Please_confirm_the_wallet_password" v-model="repassword">
+					<input type="text" placeholder="请确认密码" v-model="repassword" :password="password2">
+					<i class="iconfont "
+					 :class="[password2?'icon-yanjing1':'icon-yanjing2']"
+					 @tap.stop="password2=!password2"></i>
 				</view>
-				<view class="input-view">
+				<!-- <view class="input-view">
 					<image src="../../static/imgs/register-icon-03.png" mode="widthFix" lazy-load></image>
 					<input type="text" :placeholder="i18n.Fill_in_the_invitation_code" v-model="refer">
-				</view>
+				</view> -->
 			</view>
 		</view>
 		<view class="register-bottom-btn">
-			<button type="default" :disabled="!upClass" :class="{'act':upClass}" @tap.stop="comfirm">{{i18n.Create_a_wallet}}</button>
+			<button type="default" :disabled="!upClass" :class="{'act':upClass}" @tap.stop="comfirm">立即注册</button>
 		</view>
 		<load v-if="showLoad"></load>
 	</view>
@@ -41,6 +47,7 @@
 
 <script>
 	// import uniNavBar from '../../components/uni-nav-bar/uni-nav-bar.vue';
+	import app from '../../App.vue'
 	import uniStatusBar from '@/components/uni-status-bar/uni-status-bar.vue';
 	import {mapGetters, mapMutations} from 'vuex'
 	import Load from '../../components/common/load.vue';
@@ -56,7 +63,10 @@
 				username:'',
 				password:'',
 				repassword:'',
-				refer:''
+				refer:'',
+				list:'',
+				password1:true,
+				password2:true
 			};
 		},
 		watch:{
@@ -115,15 +125,36 @@
 					showToast(this.i18n.login_pass_inconsistent)
 					return
 				}
+				app.globalData.data= {
+					email: this.username,
+					password: this.password,
+					password1: this.repassword,
+					lang_type: this.getLang,
+					username: this.username,
+					zjc:''
+				}
+				fetch('/api/login/check_username',{username:this.username},'post').then(res=>{
+					showToast(res.data.msg)
+					if(res.data.code==1){
+						uni.navigateTo({
+							url:'/pages/new-login/Mnemonic-tips'
+						})
+					}
+				}).then(err=>{
+					
+				})
+				return
+				
 				this.showLoad = true;
 				let _data = {
 					email: this.username,
 					password: this.password,
 					password1: this.repassword,
-					refer: this.refer,
 					lang_type: this.getLang,
 					username: this.username,
+					zjc:this.list
 				}
+			
 				fetch('/api/login/register', _data, "post")
 					.then(res=>{
 						this.showLoad = false;
@@ -138,11 +169,14 @@
 					})
 					.catch(err=>{
 						this.showLoad = false;
+						uni.navigateTo({
+							// url:'/pages/new-login/new-register'
+							url:'/pages/new-login/Mnemonic-tips'
+						})
 					})
-				
-				// uni.navigateTo({
-				// 	url:'/pages/new-login/new-register'
-				// })
+				uni.navigateTo({
+					url:'/pages/new-login/Mnemonic-tips'
+				})
 			},
 			getLogin(name,pwd){
 				let _data = {

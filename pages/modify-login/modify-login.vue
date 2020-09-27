@@ -3,13 +3,13 @@
 		<view class="content">
 			<!-- <view class="login-title">忘记密码</view> -->
 			<view class="li">
-				<input type="text" :placeholder="i18n.enter_account" v-model="phone" disabled>
+				<input type="text" disabled :placeholder="i18n.enter_account" v-model="phone">
 				<!-- <text class="iconfont icon-cha" @tap="phone=''"></text> -->
 			</view>
-			<view class="li">
+			<!-- <view class="li">
 				<input type="text" :placeholder="i18n.enter_vcode" v-model="vcode">
 				<view class="v-code"><Vcode :account="username"></Vcode></view>
-			</view>
+			</view> -->
 			<view class="li">
 				<input :type="showiconyanjing1 ? 'password' : 'text'" :placeholder="i18n.enter_new_pass" v-model="pass">
 				<text class="iconfont" :class="showiconyanjing1 ? 'icon-yanjing1' : 'icon-yanjing2'" @tap="showiconyanjing1 = !showiconyanjing1"></text>
@@ -33,6 +33,7 @@
 </template>
 
 <script>
+	import app from '../../App.vue'
 	import Load from '../../components/common/load.vue';
 	import Vcode from '@/components/vcode/vcode.vue'
 	import {mapGetters, mapMutations} from 'vuex'
@@ -46,7 +47,7 @@
 					margin:"0 auto"
 				},
 				showLoad:false,
-				phone: '',
+				phone:'ooooo02',
 				username:'',
 				vcode: '',
 				pass: '',
@@ -54,13 +55,21 @@
 				invitation: '',
 				showiconyanjing1: true,
 				showiconyanjing2: true,
-				isCheck:false
+				isCheck:false,
+				prompt:false
 			}
 		},
-		onLoad() {
-			console.log(this.getLoginInfo);
-			this.username = this.getLoginInfo.email
-			this.phone = this.getLoginInfo.email
+		onLoad(e) {
+			console.log(app.globalData,"000000000000000")
+			let str=JSON.parse(e.str)
+			let arr=""
+			str.forEach((item,index)=>{
+				console.log(item.data)
+				arr+=item.data
+			})
+			this.vcode=arr
+			this.username = this.getLoginInfo.username
+			this.phone = this.getLoginInfo.username
 		},
 		onShow() {
 			uni.setNavigationBarTitle({
@@ -82,14 +91,15 @@
 		},
 		methods: {
 			doFetch() {
+				this.prompt=true;
 				if(!this.phone){
 					showToast(this.i18n.enter_account)
 					return
 				}
-				if(!this.vcode){
-					showToast(this.i18n.enter_vcode)
-					return
-				}
+				// if(!this.vcode){
+				// 	showToast('请输入助记词')
+				// 	return
+				// }
 				if(!this.pass){
 					showToast(this.i18n.enter_new_pass)
 					return
@@ -116,27 +126,35 @@
 				fetch('/api/login/resetpswd', _data, 'POST')
 					.then(res => {
 						this.isCheck  = false;
-						// console.log(res)
 						this.showLoad = false;
 						if(res.statusCode == 200 && res.data.code == 1){
 							this.setLogin({
 								username: this.phone,
 								password: this.pass
 							})
-							setTimeout(()=>{
-								pageback()
-							},500)
+							uni.navigateBack({
+								delta:3
+							})
 						}
 						showToast(res.data.msg)
 					})
 					.catch(error => {
 						this.isCheck  = false;
 						this.showLoad = false;
-						console.log(error)
 					})
+					
 			},
 			tappageback() {
 				pageback()
+			},
+			cancel(){
+				this.prompt=false
+			},
+			determine(){
+				this.prompt=false;
+				uni.navigateTo({
+					url:"/pages/login/login"
+				})
 			},
 			...mapMutations([
 				'setLogin'

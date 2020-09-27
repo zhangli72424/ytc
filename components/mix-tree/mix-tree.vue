@@ -29,21 +29,21 @@
 						<view class="tree-bottom">
 							<view class="tree-bottom-item">
 								<view class="touzi">
-									{{i18n.Direct_performance}}: {{item.ztyeji }} U
+									{{i18n.Direct_performance}}: {{item.ztyeji ?item.ztyeji:0}}
 								</view>
 							</view>
 							<view class="tree-bottom-item">
 								
 								<view class="yeji">
-									{{i18n.Personally_held}}
+									团队人数
 									<!-- {{i18n.team}} -->
-									: {{item.ths}} T
+									: {{item.tdrs?item.tdrs:0}} 
 								</view>
 							</view>
 							<view class="tree-bottom-item">
 								
 								<view class="touzi">
-									{{i18n.Team_performance}}: {{item.tdsl}} U
+									{{i18n.Team_performance}}: {{item.yeji?item.yeji:0}}
 								</view>
 							</view>
 							
@@ -175,7 +175,7 @@
 		align-items: center;
 		flex-direction: row;
 		font-size: 30upx;
-		color: $white;
+		color: $black;
 		height: 0;
 		opacity: 0;
 		transition: .2s;
@@ -230,13 +230,13 @@
 		}
 	}
 	.mix-tree-item.border{
-		border-bottom: 1px solid #2B2860;
+		border-bottom: 1px solid $split-line-color2;
 	}
 	.mix-tree-item.show{
 		height: 100upx;
 		opacity: 1;
 		padding: 20upx 0;
-		border-bottom: 1upx solid #25314D;
+		border-bottom: 1upx solid $split-line-color2;
 	}
 	.mix-tree-item.show.rank1 {
 		height: 100upx;

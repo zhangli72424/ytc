@@ -5,14 +5,12 @@
 			<text><!-- {{i18n.define_mnemo_tip0}} -->请按顺序抄写助记词，确保备份正确</text>
 		</view>
 		<view class="define-content">
-			<block v-for="(item,index) in list" :key="index">
+			<block v-for="(item,index) in Lists " :key="index">
 				<view class="define-li" :class="{'no-border':(index+1)%3==0}">
 					<text>{{index+1}}</text>
-					{{item.mnemonic}}
+					{{item.mnemonic || '-'}}
 				</view>
 			</block>
-			
-			
 		</view>
 		<view class="tips-con">
 			<view class="tips-con-i">
@@ -25,21 +23,23 @@
 		
 		
 		<view class="tips-bottom-button">
-			<button hover-class="active" @tap.stop="jump">我以备份</button>
+			<button hover-class="active" @tap.stop="jump">我已备份</button>
 		</view>
 		
-		
+		<load v-if="showLoad"/>
 	</view>
 </template>
 
 <script>
+	import App from '../../App.vue'
 	import Load from '../../components/common/load.vue';
 	import {fetch, _updataTabBar, showToast, pageto, forceUpdate} from '@/common/js/util.js'
 	import {mapGetters, mapMutations} from 'vuex' 
 	export default {
 		data() {
 			return {
-				list:[]
+				Lists:[],
+				showLoad:false
 			};
 		},
 		computed:  {
@@ -51,31 +51,47 @@
 				"getLoginInfo",
 				'getTextArr',
 				'getLangType',
-				'getLang'
+				'getLang',
+				'getMnemonic'
 			])
 		},
-		onShow(){
-			this.getAvarte();
+		onLoad(){
+			this.getAvarte()
 		},
 		methods:{
 			getAvarte(){
-				let url =  '/api/index/mnemonic';
 				let data  ={
 					id:this.getLoginInfo.id,
 					token:this.getLoginInfo.token
 				}
-				this.list = [{0:'earth'},{0:'earth'},{0:'eye'},{0:'mouth'},{0:'egg'},{0:'tab'},{0:'up'},{0:'down'},{0:'sister'},{0:'earth'},{0:'earth'},{0:'earth'}]
+				// this.list = [{0:'earth'},{0:'earth'},{0:'eye'},{0:'mouth'},{0:'egg'},{0:'tab'},{0:'up'},{0:'down'},{0:'sister'},{0:'earth'},{0:'earth'},{0:'earth'}]
 				// return
-				fetch(url,data,"POST").then(res=>{
-					if(res.data.code){
-						this.list = res.data.data
-					}
-				})
+				this.showLoad=true
+				this.Lists = [{},{},{},{},{},{},{},{},{},{},{},{}]
+				fetch('/api/login/make_zjc', {}, "post")
+					.then(res => {
+						this.showLoad=false;
+						if (res.data.msg== "success" && res.data.code == 1) {
+							let  list=res.data.data.slice(0,-1)
+							let lists=list.split(',')
+							lists.forEach((item,index)=>{
+							   this.Lists[index].mnemonic = item;
+							   this.$set(this.Lists, index, this.Lists[index])
+							})
+							App.globalData.Mnemonic=this.Lists;
+							uni.setStorageSync('Mnemonic',JSON.stringify(this.Lists))
+						} else {
+							showToast(res.data.msg)
+						}
+					})
+					.catch(err => {
+						
+					})
 			},
 			jump(){
 				console.log(11);
-				uni.navigateTo({
-					url:`/pages/new-login/verification-Mnemonic?list=${JSON.stringify(this.list)}`
+				uni.reLaunch({
+					url:`/pages/new-login/verification-Mnemonic?list=${JSON.stringify(this.Lists)}`
 				})
 			}
 		}
@@ -121,18 +137,21 @@
 		.define-content{
 			margin-top: 26upx;
 			border: 1upx solid #DFE5FB; 
-			background: #fafbff;
+			background: #FAFBFF;
 			display: flex;
 			align-items: center;
 			flex-wrap: wrap;
 			border-radius: 10upx;
+			overflow: hidden;
+			text-overflow:ellipsis;
+			white-space: nowrap;
 			.define-li{
 				// width: 197upx;
 				width: 33.3%;
 				padding-top: 36upx;
 				line-height: 80upx;
 				position: relative;
-				font-size: 32upx;
+				font-size: 26upx;
 				padding-left: 32upx;
 				border-bottom: 1upx solid #DFE5FB;
 				border-right: 1upx solid #DFE5FB;
@@ -142,8 +161,9 @@
 				text{
 					position: absolute;
 					right: 16upx;
-					top: 0;
+					top: 21rpx;
 					font-size: 26upx;
+					color: #151515;
 				}
 			}
 		}

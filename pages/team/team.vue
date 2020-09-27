@@ -1,38 +1,38 @@
 <template>
 	<view class="app-setting">
 		<u-navbar :is-back="true"
-		backIconColor="#ffffff"
+		backIconColor="#000"
 		:background="background">
 		</u-navbar>
 		<view class="list">
 			<view class="header" :class="{ lastColor:lvShow}">
 				<view class="head-img">
-					<image :src="`../../static/imgs/avatar${avatar?avatar:''}.png`" mode=""></image>
+					<image :src="`../../static/imgs/head.png`" mode=""></image>
 				</view>
 				<p class="fonts">{{name1}}</p>
 			</view>
 			<view class="menuList">
 				<view class="item" @tap="toTeam(3)">
-					<div>{{i18n.Direct_performance}}</div>
-					<p :class="{ acolor:lvShow}">{{ztyeji?(ztyeji):'0'}} U</p>
+					<view class="_div">{{i18n.Direct_performance}}</view>
+					<view class="_p" :class="{ acolor:lvShow}">{{ztyeji?(ztyeji):'0'}}</view>
 					
 				</view>
 				<view class="item">
-					<div>{{i18n.Personally_held}}</div>
-					<p :class="{ acolor:lvShow}">{{ths?(ths):0}} T</p>
+					<view class="_div">团队人数</view>
+					<view class="_p" :class="{ acolor:lvShow}">{{tdrs?(tdrs):0}}</view>
 					
 				</view>
 				
 				<view class="item" @tap="toTeam(3)">
-					<div>{{i18n.Team_performance}}</div>
-					<p :class="{ acolor:lvShow}">{{tdsl?(tdsl):'0'}} U</p>
+					<view class="_div">{{i18n.Team_performance}}</view>
+					<view class="_p" :class="{ acolor:lvShow}">{{yeji?(yeji):'0'}}</view>
 					
 				</view>
 			</view>
 			
-			<view class="lever-tip" v-if="showMesageShow">
+		<!-- 	<view class="lever-tip" v-if="showMesageShow">
 				{{message}}
-			</view>
+			</view> -->
 			
 			<view class="level-wrapper">
 				<view class="inner-content">
@@ -52,7 +52,7 @@
 <script>
 	import Load from '../../components/common/load.vue';
 	import {pageto, pageback, fetch, showToast} from "../../common/js/util.js"
-	import {mapGetters} from 'vuex';
+	import {mapGetters, mapMutations} from 'vuex';
 	import mixTree from '@/components/mix-tree/mix-tree';
 	import Message from '@/components/common/message.vue';
 	export default{
@@ -60,7 +60,9 @@
 			return{
 				message:'',
 				showMesageShow:false,
-				background:'transparent',
+				background:{
+					background:"#FFFFFF"
+				},
 				showLoad:false,
 				ztyeji:'',
 				ths:'',
@@ -97,7 +99,8 @@
 				'getTextArr',
 				'getLangType',
 				'getLoginInfo',
-				'getRequestUrl'
+				'getRequestUrl',
+				'getInTeam'
 			])
 		},
 		// onLoad(e) {
@@ -112,9 +115,12 @@
 			this.showMesageShow = false;
 			this.list=null;
 			this.list=[];
-			this._getTeamInfo();
+			if(this.getInTeam){
+				this._getTeamInfo();
+			}
 		},
 		methods:{
+			...mapMutations(['setInTeam']),
 			closeMessage(){
 				this.showMesageShow = !this.showMesageShow
 			},
@@ -128,6 +134,7 @@
 				this.showLoad = true;
 				fetch('/api/User/two_user', _data, "post")
 					.then(res => {
+						this.setInTeam(false)
 						// uni.hideLoading()
 						this.showLoad = false;
 						let _tmp = {
@@ -136,7 +143,7 @@
 								name: this.name1,
 								yeji2: this.yeji2,
 								freeze: this.freeze1,
-								tdsl:this.tdsl,
+								tdrs:this.tdrs,
 								ekn_tr:this.ekn_tr,
 								ekn_xqyj:this.ekn_xqyj,
 								ztyeji:this.ztyeji,
@@ -220,7 +227,7 @@
 	// }
 	.lever-tip{
 		background: $adorn-red;
-		color: $white;
+		color: $black;
 		text-align: center;
 		line-height: 65rpx;
 	}
@@ -231,7 +238,7 @@
 				padding-top: 1upx;
 				.inner-content {
 					width: 690upx;
-					background:#1B2640;
+					background:#FFFFFF;
 					border-radius: 10upx;
 					margin: 30upx;
 					padding: 30upx;
@@ -245,7 +252,7 @@
 						.title {
 							margin-left: 40upx !important;
 							font-weight: bold !important;
-							color: $white !important;
+							color: $default-color !important;
 						}
 						.info {
 							margin-left: 40upx !important;
@@ -290,7 +297,7 @@
 							width: 36upx;
 							height: 36upx;
 							border-radius: 10upx;
-							color: $white;
+							color: $default-color;
 							background-color: #f00;
 							border-radius: 8upx;
 							font-size: 16px;
@@ -355,7 +362,7 @@
 				align-items: center;
 				width: 100%;
 				height: 268upx;
-				background: $button-color;
+				background: $theme-color;
 				&.lastColor{
 					background-color: #c4aa6e;
 				}
@@ -375,7 +382,7 @@
 					text-align: center;
 					font-size: 28upx;
 					margin-top:-50upx;
-					color: #fff;
+					color: $black;
 					font-weight: bold;
 				}
 			}
@@ -389,22 +396,23 @@
 				padding-top:44upx;
 				padding-bottom:52upx;
 				width: 100%;
-				background-color: #1B2640;
+				background-color:#FFFFFF;
 				.item{
-					width: 50%;
+					width: 33.33%;
 					text-align: center;
-					p{
+					._p{
 						font-size: 20px;
-						color: $white;
+						color: $black;
 						font-weight: bold;
 						&.acolor{
 							color:#c4aa6e;
 						}
 					}
-					div{
+					._div{
 						font-size: 14px;
 						margin-top: 10upx;
 						color: #58627D;
+						margin-bottom: 20rpx;
 					}
 				}
 			}

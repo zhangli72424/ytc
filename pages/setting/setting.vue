@@ -48,9 +48,7 @@
 				customStyle:{
 					backgroundColor:'#E93841'
 				},
-				background:{
-					background:'#ffffff'
-				},
+				background:'#FFFFFF',
 				version: ''
 			}
 		},
@@ -85,18 +83,12 @@
 				if(id==0){
 					console.log(1234)
 					uni.navigateTo({
-						url:"/pages/new-login/verification-Mnemonic2"
+						url:`/pages/new-login/verification-Mnemonic?id=${1}`
 					})
-					// uni.navigateTo({
-					// 	url:"/pages/modify-login/modify-login"
-					// })
 				}else{
 					uni.navigateTo({
-						url:"/pages/new-login/verification-Mnemonic2"
+						url:`/pages/new-login/verification-Mnemonic?id=${2}`
 					})
-					// uni.navigateTo({
-					// 	url:"/pages/modify-pwd/modify-pwd"
-					// })
 				}
 			},
 			back() {
@@ -135,7 +127,6 @@
 }
 .app-setting {
 	.list {
-		border-top: 20rpx solid #f2f2f2;
 		margin: 20upx 0 200upx;
 		.li {
 			padding:0 30upx;

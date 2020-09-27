@@ -291,7 +291,7 @@
 				},
 				num:1,
 				noPaypwd:false,
-				curInfo:{}
+				curInfo:[]
 			}
 		},
 		computed:{
@@ -306,6 +306,10 @@
 				'getTextArr',
 				'getCurInfo'
 			])
+		},
+		onLoad(e){
+			console.log(e)
+			this.curInfo=JSON.parse(e.data);
 		},
 		onShow(){
 			this.noPaypwd = false;
@@ -325,17 +329,18 @@
 			...mapMutations(['setCurInfo', 'setImgsrc']),
 			getDetail(){
 				
-				let res = {"code":1,"msg":"成功","time":1600419317,"data":{"id":1,"title":"ETH矿机","status":1,"details":null,"rcb":"0.1000","premium":"0.00009600","type":1,"th_day":1460,"token_id":2,"stock":0,"buystock":0,"lowbetting":12,"th":230,"price":"16800.00","install_day":30,"expinc":"30","power":"218.06","diff":"2.92","time":"2020-09-18","ctime":"2020-10-18","dtime":"2024-09-17","year":4,"balance":"0.00000000"}}
+				// let res = {"code":1,"msg":"成功","time":1600419317,"data":{"id":1,"title":"ETH矿机","status":1,"details":null,"rcb":"0.1000","premium":"0.00009600","type":1,"th_day":1460,"token_id":2,"stock":0,"buystock":0,"lowbetting":12,"th":230,"price":"16800.00","install_day":30,"expinc":"30","power":"218.06","diff":"2.92","time":"2020-09-18","ctime":"2020-10-18","dtime":"2024-09-17","year":4,"balance":"0.00000000"}}
 				
-				if(res.code==1){
-					this.curInfo = res.data
-					this.curInfo.ycb = parseInt(Number(this.curInfo.rcb)*10000)/100
-					this.curInfo.price = parseInt(Number(this.curInfo.price)*10000)/10000
-					this.curInfo.prograss = parseInt(Number(this.curInfo.buystock)/(Number(this.curInfo.buystock)+Number(this.curInfo.stock))*1000000)/10000
-					this.curInfo.premium = parseInt(Number(this.curInfo.premium)*10000)/100
-					console.log(this.curInfo);
+				// if(res.code==1){
+				// 	this.curInfo = res.data
+				// 	this.curInfo.ycb = parseInt(Number(this.curInfo.rcb)*10000)/100
+				// 	this.curInfo.price = parseInt(Number(this.curInfo.price)*10000)/10000
+				// 	this.curInfo.prograss = parseInt(Number(this.curInfo.buystock)/(Number(this.curInfo.buystock)+Number(this.curInfo.stock))*1000000)/10000
+				// 	this.curInfo.premium = parseInt(Number(this.curInfo.premium)*10000)/100
+				// 	console.log(this.curInfo);
 					
-				}
+				// }
+				
 				return
 				
 				fetch('/api/bee/buydetails',{shopid:this.getCurInfo.shopid},'post')

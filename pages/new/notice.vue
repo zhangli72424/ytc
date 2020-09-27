@@ -199,8 +199,8 @@
 		width: 690rpx !important;
 		height: auto !important;
 		image{
-			width: 620rpx;
-			height: 620rpx;
+			width: 134rpx;
+			height: 161upx;
 			-webkit-flex-shrink: 0;
 			flex-shrink: 0;
 			margin: 0 auto;
