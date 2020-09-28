@@ -10,8 +10,8 @@ const state = {
 	id:uni.getStorageSync('id')|| "",
 	Mnemonic:uni.getStorageSync('Mnemonic')|| '',
 	textArr: {
-		chs: [ "首页", "交易",  "资产", "币币", "我的" ],
-		en: [ "Home", "Transaction", "Assets", "Coins", "Mine" ]
+		chs: [ "首页", "币币", "资产", "我的" ],
+		en: [ "Home",  "Coins", "Assets", "Mine" ]
 	},
 	coins:'',
 	bulletin:'',

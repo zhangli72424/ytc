@@ -22,6 +22,9 @@
 						<view>市场委托</view>
 						<i class="icon iconfont icon-sanjiaoxia"></i>
 					</view>
+					<view class="pick-nav">
+						<input type="text" value="" placeholder="以当前最优价格交易"/>
+					</view>
 				</view>
 				<view class="trans-top-r">
 					adas
@@ -79,7 +82,7 @@
 	}
 	.trans-top-content{
 		display: flex;
-		align-items: center;
+		// align-items: center;
 		.trans-top-l{
 			flex: 1;
 			margin-right: 72rpx;

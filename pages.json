@@ -526,12 +526,12 @@
 				"iconPath": "static/tab/tab06.png",
 				"selectedIconPath": "static/tab/tab01.png"
 			},
-			{
-				"pagePath": "pages/miner/index",
-				"text": "交易",
-				"iconPath": "static/tab/tab07.png",
-				"selectedIconPath": "static/tab/tab02.png"
-			},
+			// {
+			// 	"pagePath": "pages/miner/index",
+			// 	"text": "交易",
+			// 	"iconPath": "static/tab/tab07.png",
+			// 	"selectedIconPath": "static/tab/tab02.png"
+			// },
 			// {
 			// 	"pagePath": "pages/market/market",
 			// 	"text": "市场",
@@ -539,16 +539,16 @@
 			// 	"selectedIconPath": "static/tab/tab03.png"
 			// },
 			{
-				"pagePath": "pages/assets/assets",
-				"text": "资产",
-				"iconPath": "static/tab/tab08.png",
-				"selectedIconPath": "static/tab/tab03.png"
-			},
-			{
 				"pagePath": "pages/transaction/transaction",
 				"text": "币币",
 				"iconPath": "static/tab/tab09.png",
 				"selectedIconPath": "static/tab/tab04.png"
+			},
+			{
+				"pagePath": "pages/assets/assets",
+				"text": "资产",
+				"iconPath": "static/tab/tab08.png",
+				"selectedIconPath": "static/tab/tab03.png"
 			},
 			{
 				"pagePath": "pages/mine/mine",
